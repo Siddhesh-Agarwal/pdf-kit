@@ -35,6 +35,9 @@ importers:
       '@tanstack/react-router-devtools':
         specifier: ^1.166.11
         version: 1.166.11(@tanstack/react-router@1.168.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(@tanstack/router-core@1.168.3)(csstype@3.2.3)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      '@tsmx/human-readable':
+        specifier: ^2.0.4
+        version: 2.0.4
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -1301,6 +1304,10 @@ packages:
 
   '@ts-morph/common@0.27.0':
     resolution: {integrity: sha512-Wf29UqxWDpc+i61k3oIOzcUfQt79PIT9y/MWfAGlrkjg6lBC1hwDECLXPVJAhWjiGbfBCxZd65F/LIZF3+jeJQ==}
+
+  '@tsmx/human-readable@2.0.4':
+    resolution: {integrity: sha512-RDGX6aDZYV7JI6GfPRujWXHoYIzqPXqiXJtHXH5a8Zy/tH+vPtxLhbIU90YlM865Dv7cBrTItF3kutST6bVdrA==}
+    engines: {node: '>=14.0.0', npm: '>=6.0.0'}
 
   '@tybys/wasm-util@0.10.1':
     resolution: {integrity: sha512-9tTaPJLSiejZKx+Bmog4uSubteqTvFrVrURwkmHixBo0G4seD0zUxp98E1DzUBJxLQ3NPwXrGKDiVjwx/DpPsg==}
@@ -3796,6 +3803,8 @@ snapshots:
       fast-glob: 3.3.3
       minimatch: 10.2.4
       path-browserify: 1.0.1
+
+  '@tsmx/human-readable@2.0.4': {}
 
   '@tybys/wasm-util@0.10.1':
     dependencies:

@@ -22,6 +22,7 @@
     "@fontsource-variable/merriweather": "^5.2.6",
     "@tanstack/react-router": "^1.168.3",
     "@tanstack/react-router-devtools": "^1.166.11",
+    "@tsmx/human-readable": "^2.0.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.6.0",

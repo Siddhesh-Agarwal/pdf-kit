@@ -20,6 +20,7 @@ import { CopyIcon, FileTextIcon, GripVerticalIcon, XIcon } from "lucide-react";
 import { useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { Button } from "@/components/ui/button";
+import hr from "@tsmx/human-readable"
 
 export const Route = createFileRoute("/merge-pdf")({
   component: RouteComponent,
@@ -144,7 +145,7 @@ function SortableFileItem({
       </div>
       <div className="flex items-center gap-2">
         <span className="text-xs text-muted-foreground whitespace-nowrap">
-          {(file.size / 1024).toFixed(0)} KB
+          {hr.fromBytes(file.size, { fixedPrecision: 1 })}
         </span>
         <div onPointerDown={(e) => e.stopPropagation()}>
           <Button
