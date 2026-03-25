@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 interface DropZoneFileInputProps {
   onFilesChanged: (files: File[]) => void;
   multiple?: boolean;
-  colorTheme?: "indigo" | "violet" | "emerald";
   title?: string;
   subtitle?: string;
 }
@@ -13,7 +12,6 @@ interface DropZoneFileInputProps {
 export function DropZoneFileInput({
   onFilesChanged,
   multiple = false,
-  colorTheme = "indigo",
   title,
   subtitle = "or click to browse",
 }: DropZoneFileInputProps) {
@@ -41,20 +39,9 @@ export function DropZoneFileInput({
   };
 
   const getThemeClasses = () => {
-    switch (colorTheme) {
-      case "violet":
-        return dragging
-          ? "border-violet-400 bg-violet-500/10"
-          : "border-slate-700 bg-slate-800/30 hover:border-violet-500/60 hover:bg-slate-800/50";
-      case "emerald":
-        return dragging
-          ? "border-emerald-400 bg-emerald-500/10"
-          : "border-slate-700 bg-slate-800/30 hover:border-emerald-500/60 hover:bg-slate-800/50";
-      case "indigo":
-        return dragging
-          ? "border-indigo-400 bg-indigo-500/10"
-          : "border-slate-700 bg-slate-800/30 hover:border-indigo-500/60 hover:bg-slate-800/50";
-    }
+    return dragging
+      ? "border-primary bg-primary/10"
+      : "border-border bg-muted/30 hover:border-primary/60 hover:bg-muted/50";
   };
 
   return (
@@ -77,11 +64,11 @@ export function DropZoneFileInput({
         className="absolute inset-0 opacity-0 cursor-pointer"
         onChange={handleChange}
       />
-      <Upload className="w-10 h-10 text-slate-500 mx-auto mb-4" />
-      <p className="text-slate-300 font-medium mb-1">
+      <Upload className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
+      <p className="text-foreground font-medium mb-1">
         {title || (multiple ? "Drop PDF files here" : "Drop a PDF file here")}
       </p>
-      <p className="text-slate-500 text-sm">{subtitle}</p>
+      <p className="text-muted-foreground text-sm">{subtitle}</p>
     </div>
   );
 }

@@ -36,7 +36,6 @@ function RouteComponent() {
         {/* Drop Zone */}
         <DropZoneFileInput
           multiple
-          colorTheme="indigo"
           onFilesChanged={handleFilesAdded}
         />
 

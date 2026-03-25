@@ -43,7 +43,6 @@ function RouteComponent() {
         {!file ? (
           <DropZoneFileInput
             multiple={false}
-            colorTheme="emerald"
             onFilesChanged={handleFileAdded}
           />
         ) : (

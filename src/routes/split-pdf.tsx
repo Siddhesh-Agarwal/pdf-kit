@@ -26,7 +26,7 @@ function RouteComponent() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-violet-500/20 border border-violet-500/30 mb-6">
             <ScissorsIcon className="w-8 h-8 text-violet-400" />
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-violet-300 bg-clip-text text-transparent mb-3">
+          <h1 className="text-4xl font-bold bg-linear-to-r from-white to-violet-300 bg-clip-text text-transparent mb-3">
             Split PDF
           </h1>
           <p className="text-slate-400 text-lg">Extract pages or split a PDF into multiple files.</p>
@@ -36,7 +36,6 @@ function RouteComponent() {
         {!file ? (
           <DropZoneFileInput
             multiple={false}
-            colorTheme="violet"
             onFilesChanged={handleFileAdded}
           />
         ) : (

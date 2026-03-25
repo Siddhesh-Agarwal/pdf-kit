@@ -55,14 +55,14 @@ function RouteComponent() {
       <div className="relative max-w-5xl mx-auto px-6 py-24">
         {/* Hero */}
         <div className="text-center mb-20">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-800/60 border border-slate-700/60 text-slate-400 text-sm mb-8">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-muted border border-border text-muted-foreground text-sm mb-8">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
             Free PDF tools, no sign-up required
           </div>
-          <h1 className="text-5xl sm:text-6xl font-bold bg-gradient-to-br from-white via-slate-200 to-slate-400 bg-clip-text text-transparent leading-tight mb-6">
+          <h1 className="text-5xl sm:text-6xl font-bold text-foreground leading-tight mb-6">
             Your PDF Toolkit,<br />Simplified
           </h1>
-          <p className="text-slate-400 text-lg max-w-xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-xl mx-auto">
             Merge, split, and compress PDF files instantly — right in your browser, private and fast.
           </p>
         </div>
@@ -87,17 +87,17 @@ function RouteComponent() {
                 "transition-transform duration-200 group-hover:scale-110",
                 iconBg,
               )}>
-                <Icon className="w-6 h-6" />
+                <Icon className="w-6 h-6 text-primary" />
               </div>
 
               {/* Label + Arrow */}
               <div className="flex items-center justify-between mb-2">
-                <h2 className="text-lg font-semibold text-white">{label}</h2>
+                <h2 className="text-lg font-semibold text-foreground">{label}</h2>
                 <ChevronRight className={cn("w-4 h-4 transition-transform duration-200 group-hover:translate-x-1", arrow)} />
               </div>
 
               {/* Description */}
-              <p className="text-slate-400 text-sm leading-relaxed mb-5">{description}</p>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-5">{description}</p>
 
               {/* Badge */}
               <div className="mt-auto">

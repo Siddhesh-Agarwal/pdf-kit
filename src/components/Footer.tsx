@@ -1,11 +1,7 @@
+import { navLinks } from "@/data";
 import { Link } from "@tanstack/react-router";
-import { FileText, Merge, Scissors, PackageOpen, Dot } from "lucide-react";
-
-const tools = [
-  { to: "/merge-pdf" as const, label: "Merge PDF", icon: Merge },
-  { to: "/split-pdf" as const, label: "Split PDF", icon: Scissors },
-  { to: "/compress-pdf" as const, label: "Compress PDF", icon: PackageOpen },
-] as const;
+import { DotIcon } from "lucide-react";
+import { Logo } from "./Logo";
 
 export function Footer() {
   return (
@@ -14,13 +10,8 @@ export function Footer() {
         <div className="grid sm:grid-cols-3 gap-10 mb-10">
           {/* Brand */}
           <div className="sm:col-span-1">
-            <Link to="/" className="flex items-center gap-2.5 mb-4 w-fit group">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 transition-transform duration-200 group-hover:scale-105">
-                <FileText className="w-4 h-4 text-white" />
-              </div>
-              <span className="font-bold text-foreground text-lg tracking-tight">
-                PDF<span className="text-indigo-400">Kit</span>
-              </span>
+            <Link to="/" className="mb-4 w-fit">
+              <Logo />
             </Link>
             <p className="text-sm text-sidebar-foreground leading-relaxed max-w-xs">
               Fast, free, and private PDF tools that run entirely in your browser. No uploads. No sign-ups.
@@ -31,7 +22,7 @@ export function Footer() {
           <div>
             <p className="text-xs font-semibold text-sidebar-foreground uppercase tracking-widest mb-4">Tools</p>
             <ul className="space-y-2.5">
-              {tools.map(({ to, label, icon: Icon }) => (
+              {navLinks.map(({ to, label, icon: Icon }) => (
                 <li key={to}>
                   <Link
                     to={to}
@@ -56,12 +47,12 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="pt-6 border-t border-slate-800/60 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-slate-600">
             © {new Date().getFullYear()} PDFKit. All rights reserved.
           </p>
           <div className="flex items-center gap-1.5 text-xs text-slate-600">
-            <Dot className="w-4 h-4 text-emerald-500" />
+            <DotIcon className="w-4 h-4 text-emerald-500" />
             All processing happens locally in your browser
           </div>
         </div>

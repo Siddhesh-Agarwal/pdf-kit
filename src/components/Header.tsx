@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { FileText, Merge, Scissors, PackageOpen } from "lucide-react";
+import { FileTextIcon } from "lucide-react";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -8,27 +8,9 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-
-const navLinks = [
-  {
-    to: "/merge-pdf",
-    label: "Merge PDF",
-    icon: Merge,
-    description: "Combine multiple PDFs into a single file in seconds.",
-  },
-  {
-    to: "/split-pdf",
-    label: "Split PDF",
-    icon: Scissors,
-    description: "Extract specific pages or split a PDF into multiple files.",
-  },
-  {
-    to: "/compress-pdf",
-    label: "Compress PDF",
-    icon: PackageOpen,
-    description: "Reduce PDF file size while preserving quality.",
-  },
-];
+import { ModeToggle } from "@/components/mode-toggle";
+import { navLinks } from "@/data";
+import { Logo } from "./Logo";
 
 export function Header() {
   return (
@@ -37,13 +19,8 @@ export function Header() {
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link to="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-linear-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg shadow-indigo-500/30 transition-transform duration-200 group-hover:scale-105">
-            <FileText className="w-4 h-4 text-white" />
-          </div>
-          <span className="font-bold text-lg tracking-tight text-foreground">
-            PDF<span className="text-indigo-400">Kit</span>
-          </span>
+        <Link to="/">
+          <Logo />
         </Link>
 
         {/* Nav */}
@@ -79,6 +56,7 @@ export function Header() {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
+          <ModeToggle />
         </nav>
       </div>
     </header>
