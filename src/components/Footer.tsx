@@ -55,6 +55,16 @@ export function Footer() {
                   Privacy Policy
                 </Link>
               </li>
+              <li>
+                <a
+                  href="https://github.com/Siddhesh-Agarwal/pdf-kit"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-sidebar-foreground"
+                >
+                  GitHub
+                </a>
+              </li>
             </ul>
           </div>
         </div>
