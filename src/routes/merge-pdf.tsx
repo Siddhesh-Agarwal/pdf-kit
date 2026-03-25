@@ -58,9 +58,9 @@ function RouteComponent() {
 
   const handleMergePDFs = async () => {
     setIsMerging(true);
-    const mergedPdf = await mergePDFs(files);
+    const blob = await mergePDFs(files);
     setIsMerging(false);
-    const url = URL.createObjectURL(mergedPdf);
+    const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
     a.download = "merged.pdf";
