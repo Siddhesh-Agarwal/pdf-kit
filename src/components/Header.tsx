@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import { FileTextIcon } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import {
   NavigationMenu,
