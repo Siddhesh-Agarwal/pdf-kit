@@ -15,13 +15,11 @@ export function Header() {
   return (
     <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-sidebar border-b border-border backdrop-blur-xl">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
-        {/* Logo */}
         <Link to="/">
           <Logo />
         </Link>
 
-        {/* Nav */}
-        <nav className="hidden sm:flex items-center gap-1">
+        <nav className="flex items-center gap-1">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -38,7 +36,7 @@ export function Header() {
                             className="block select-none space-y-1.5 rounded-lg p-2 leading-none no-underline"
                           >
                             <div className="flex items-center gap-2 text-sm font-semibold">
-                              <Icon className="w-4 h-4 text-indigo-400" />
+                              <Icon className="w-4 h-4 text-primary" />
                               {label}
                             </div>
                             <p className="line-clamp-2 text-xs">{description}</p>
