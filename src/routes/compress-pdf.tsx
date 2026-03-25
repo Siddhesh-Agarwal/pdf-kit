@@ -46,7 +46,7 @@ function RouteComponent() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 mb-6">
             <PackageOpenIcon className="w-8 h-8 text-emerald-400" />
           </div>
-          <h1 className="text-4xl font-bold text-emerald-300 bg-clip-text mb-3">Compress PDF</h1>
+          <h1 className="text-4xl font-bold text-emerald-500/75 bg-clip-text mb-3">Compress PDF</h1>
           <p className="text-muted-foreground text-lg">
             Reduce file size while maintaining quality.
           </p>
@@ -61,7 +61,7 @@ function RouteComponent() {
             <FileItem file={file} onRemove={() => setFile(null)} />
 
             {/* Compression Level */}
-            <div className="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 space-y-3">
+            <div className="bg-slate-800/30 border border-border rounded-2xl p-6 space-y-3">
               <p className="text-sm text-slate-400 font-medium uppercase tracking-wider mb-4">
                 Compression Level
               </p>
