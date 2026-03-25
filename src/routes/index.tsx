@@ -1,46 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronRight, Merge, PackageOpen, Scissors, Zap } from "lucide-react";
+import { ChevronRightIcon, ZapIcon } from "lucide-react";
+import { tools } from "@/data";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
   component: RouteComponent,
 });
-
-const tools = [
-  {
-    to: "/merge-pdf" as const,
-    label: "Merge PDF",
-    description: "Combine multiple PDFs into a single file in seconds.",
-    icon: Merge,
-    gradient: "from-indigo-500/20 to-indigo-600/10",
-    border: "hover:border-indigo-500/60",
-    iconBg: "bg-indigo-500/20 border-indigo-500/30 text-indigo-400",
-    badge: "bg-indigo-500/10 text-indigo-400 border-indigo-500/20",
-    arrow: "text-indigo-400",
-  },
-  {
-    to: "/split-pdf" as const,
-    label: "Split PDF",
-    description: "Extract specific pages or split a PDF into multiple files.",
-    icon: Scissors,
-    gradient: "from-violet-500/20 to-violet-600/10",
-    border: "hover:border-violet-500/60",
-    iconBg: "bg-violet-500/20 border-violet-500/30 text-violet-400",
-    badge: "bg-violet-500/10 text-violet-400 border-violet-500/20",
-    arrow: "text-violet-400",
-  },
-  {
-    to: "/compress-pdf" as const,
-    label: "Compress PDF",
-    description: "Reduce PDF file size while preserving quality.",
-    icon: PackageOpen,
-    gradient: "from-emerald-500/20 to-emerald-600/10",
-    border: "hover:border-emerald-500/60",
-    iconBg: "bg-emerald-500/20 border-emerald-500/30 text-emerald-400",
-    badge: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-    arrow: "text-emerald-400",
-  },
-];
 
 function RouteComponent() {
   return (
@@ -78,9 +43,8 @@ function RouteComponent() {
                 key={to}
                 to={to}
                 className={cn(
-                  "group relative flex flex-col p-6 rounded-2xl border border-slate-700/60 backdrop-blur-sm",
-                  "transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
-                  "bg-gradient-to-br",
+                  "group relative flex flex-col p-6 rounded-2xl border border-border backdrop-blur-sm",
+                  "transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-linear-to-br",
                   gradient,
                   border,
                 )}
@@ -93,13 +57,13 @@ function RouteComponent() {
                     iconBg,
                   )}
                 >
-                  <Icon className="w-6 h-6 text-primary" />
+                  <Icon className={cn("w-6 h-6", arrow)} />
                 </div>
 
                 {/* Label + Arrow */}
                 <div className="flex items-center justify-between mb-2">
                   <h2 className="text-lg font-semibold text-foreground">{label}</h2>
-                  <ChevronRight
+                  <ChevronRightIcon
                     className={cn(
                       "w-4 h-4 transition-transform duration-200 group-hover:translate-x-1",
                       arrow,
@@ -118,7 +82,7 @@ function RouteComponent() {
                       badge,
                     )}
                   >
-                    <Zap className="w-3 h-3" />
+                    <ZapIcon className="w-3 h-3" />
                     Free & instant
                   </span>
                 </div>

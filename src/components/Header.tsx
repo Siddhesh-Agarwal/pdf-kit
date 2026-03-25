@@ -8,7 +8,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { navLinks } from "@/data";
+import { tools } from "@/data";
 import { Logo } from "./Logo";
 
 export function Header() {
@@ -28,7 +28,7 @@ export function Header() {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-[300px] gap-3 p-4 md:w-[450px] md:grid-cols-2 rounded-xl shadow-xl">
-                    {navLinks.map(({ to, label, icon: Icon, description }) => (
+                    {tools.map(({ to, label, icon: Icon, description }) => (
                       <li key={to}>
                         <NavigationMenuLink>
                           <Link

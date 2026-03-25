@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { DotIcon } from "lucide-react";
-import { navLinks } from "@/data";
+import { tools } from "@/data";
 import { Logo } from "./Logo";
 
 export function Footer() {
@@ -25,7 +25,7 @@ export function Footer() {
               Tools
             </p>
             <ul className="space-y-2.5">
-              {navLinks.map(({ to, label, icon: Icon }) => (
+              {tools.map(({ to, label, icon: Icon }) => (
                 <li key={to}>
                   <Link
                     to={to}
