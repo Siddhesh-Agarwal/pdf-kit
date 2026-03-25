@@ -12,7 +12,6 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as SplitPdfRouteImport } from './routes/split-pdf'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as MergePdfRouteImport } from './routes/merge-pdf'
-import { Route as CompressPdfRouteImport } from './routes/compress-pdf'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -31,11 +30,6 @@ const MergePdfRoute = MergePdfRouteImport.update({
   path: '/merge-pdf',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CompressPdfRoute = CompressPdfRouteImport.update({
-  id: '/compress-pdf',
-  path: '/compress-pdf',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -50,7 +44,6 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/compress-pdf': typeof CompressPdfRoute
   '/merge-pdf': typeof MergePdfRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/split-pdf': typeof SplitPdfRoute
@@ -58,7 +51,6 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/compress-pdf': typeof CompressPdfRoute
   '/merge-pdf': typeof MergePdfRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/split-pdf': typeof SplitPdfRoute
@@ -67,33 +59,19 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/compress-pdf': typeof CompressPdfRoute
   '/merge-pdf': typeof MergePdfRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
   '/split-pdf': typeof SplitPdfRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths:
-    | '/'
-    | '/about'
-    | '/compress-pdf'
-    | '/merge-pdf'
-    | '/privacy-policy'
-    | '/split-pdf'
+  fullPaths: '/' | '/about' | '/merge-pdf' | '/privacy-policy' | '/split-pdf'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/about'
-    | '/compress-pdf'
-    | '/merge-pdf'
-    | '/privacy-policy'
-    | '/split-pdf'
+  to: '/' | '/about' | '/merge-pdf' | '/privacy-policy' | '/split-pdf'
   id:
     | '__root__'
     | '/'
     | '/about'
-    | '/compress-pdf'
     | '/merge-pdf'
     | '/privacy-policy'
     | '/split-pdf'
@@ -102,7 +80,6 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  CompressPdfRoute: typeof CompressPdfRoute
   MergePdfRoute: typeof MergePdfRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
   SplitPdfRoute: typeof SplitPdfRoute
@@ -131,13 +108,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MergePdfRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/compress-pdf': {
-      id: '/compress-pdf'
-      path: '/compress-pdf'
-      fullPath: '/compress-pdf'
-      preLoaderRoute: typeof CompressPdfRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -158,7 +128,6 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  CompressPdfRoute: CompressPdfRoute,
   MergePdfRoute: MergePdfRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
   SplitPdfRoute: SplitPdfRoute,

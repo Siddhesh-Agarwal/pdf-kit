@@ -1,4 +1,4 @@
-import { MergeIcon, PackageOpenIcon, ScissorsIcon } from "lucide-react";
+import { MergeIcon, ScissorsIcon } from "lucide-react";
 
 export const tools = [
   {
@@ -22,16 +22,5 @@ export const tools = [
     iconBg: "bg-violet-500/20 border-violet-500/30 text-violet-400",
     badge: "bg-violet-500/10 text-violet-400 border-violet-500/20",
     arrow: "text-violet-400",
-  },
-  {
-    to: "/compress-pdf",
-    label: "Compress PDF",
-    icon: PackageOpenIcon,
-    description: "Reduce PDF file size while preserving quality.",
-    gradient: "from-emerald-500/20 to-emerald-600/10",
-    border: "hover:border-emerald-500/60",
-    iconBg: "bg-emerald-500/20 border-emerald-500/30 text-emerald-400",
-    badge: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-    arrow: "text-emerald-400",
   },
 ];

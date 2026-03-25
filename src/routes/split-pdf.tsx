@@ -26,9 +26,7 @@ function RouteComponent() {
     if (!file) return;
     setIsLoading(true);
     const rangeStrings = pageRange.split(",").map((r) => r.trim());
-    const ranges = rangeStrings.map((r) =>
-      r.split("-").map((n) => parseInt(n.trim())),
-    );
+    const ranges = rangeStrings.map((r) => r.split("-").map((n) => parseInt(n.trim())));
     const pages = new Set<number>();
     for (const range of ranges) {
       if (range.length === 1) {
@@ -55,9 +53,7 @@ function RouteComponent() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-violet-500/20 border border-violet-500/30 mb-6">
             <ScissorsIcon className="w-8 h-8 text-violet-400" />
           </div>
-          <h1 className="text-4xl font-bold text-violet-400/75 bg-clip-text mb-3">
-            Split PDF
-          </h1>
+          <h1 className="text-4xl font-bold text-violet-400/75 bg-clip-text mb-3">Split PDF</h1>
           <p className="text-muted-foreground text-lg">
             Extract pages or split a PDF into multiple files.
           </p>
@@ -65,10 +61,7 @@ function RouteComponent() {
 
         {/* Drop Zone */}
         {!file ? (
-          <DropZoneFileInput
-            multiple={false}
-            onFilesChanged={handleFileAdded}
-          />
+          <DropZoneFileInput multiple={false} onFilesChanged={handleFileAdded} />
         ) : (
           <div className="space-y-6">
             {/* Selected File Card */}
