@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router"
-import { useState } from "react";
+import { createFileRoute } from "@tanstack/react-router";
 import { CopyIcon, FileTextIcon, XIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/merge-pdf")({
   component: RouteComponent,
@@ -34,16 +34,16 @@ function RouteComponent() {
         </div>
 
         {/* Drop Zone */}
-        <DropZoneFileInput
-          multiple
-          onFilesChanged={handleFilesAdded}
-        />
+        <DropZoneFileInput multiple onFilesChanged={handleFilesAdded} />
 
         {/* File List */}
         {files.length > 0 && (
           <div className="mt-6 space-y-3">
             {files.map((file, i) => (
-              <div key={file.name} className="flex items-center gap-3 bg-slate-800/50 border border-slate-700/50 rounded-xl px-4 py-3">
+              <div
+                key={file.name}
+                className="flex items-center gap-3 bg-slate-800/50 border border-slate-700/50 rounded-xl px-4 py-3"
+              >
                 <FileTextIcon className="w-5 h-5 text-indigo-400 shrink-0" />
                 <span className="flex-1 text-sm text-slate-300 truncate">{file.name}</span>
                 <span className="text-xs text-slate-500">{(file.size / 1024).toFixed(0)} KB</span>

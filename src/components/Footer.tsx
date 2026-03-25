@@ -1,6 +1,6 @@
-import { navLinks } from "@/data";
 import { Link } from "@tanstack/react-router";
 import { DotIcon } from "lucide-react";
+import { navLinks } from "@/data";
 import { Logo } from "./Logo";
 
 export function Footer() {
@@ -14,13 +14,16 @@ export function Footer() {
               <Logo />
             </Link>
             <p className="text-sm text-sidebar-foreground leading-relaxed max-w-xs">
-              Fast, free, and private PDF tools that run entirely in your browser. No uploads. No sign-ups.
+              Fast, free, and private PDF tools that run entirely in your browser. No uploads. No
+              sign-ups.
             </p>
           </div>
 
           {/* Tools */}
           <div>
-            <p className="text-xs font-semibold text-sidebar-foreground uppercase tracking-widest mb-4">Tools</p>
+            <p className="text-xs font-semibold text-sidebar-foreground uppercase tracking-widest mb-4">
+              Tools
+            </p>
             <ul className="space-y-2.5">
               {navLinks.map(({ to, label, icon: Icon }) => (
                 <li key={to}>
@@ -38,10 +41,20 @@ export function Footer() {
 
           {/* Info */}
           <div>
-            <p className="text-xs font-semibold text-sidebar-foreground uppercase tracking-widest mb-4">Info</p>
+            <p className="text-xs font-semibold text-sidebar-foreground uppercase tracking-widest mb-4">
+              Info
+            </p>
             <ul className="space-y-2.5">
-              <li><Link to="/about" className="text-sm text-sidebar-foreground">About</Link></li>
-              <li><Link to="/privacy-policy" className="text-sm text-sidebar-foreground">Privacy Policy</Link></li>
+              <li>
+                <Link to="/about" className="text-sm text-sidebar-foreground">
+                  About
+                </Link>
+              </li>
+              <li>
+                <Link to="/privacy-policy" className="text-sm text-sidebar-foreground">
+                  Privacy Policy
+                </Link>
+              </li>
             </ul>
           </div>
         </div>

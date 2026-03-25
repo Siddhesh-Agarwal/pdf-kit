@@ -1,5 +1,6 @@
 import { Link } from "@tanstack/react-router";
 import { FileTextIcon } from "lucide-react";
+import { ModeToggle } from "@/components/mode-toggle";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -8,15 +9,12 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
-import { ModeToggle } from "@/components/mode-toggle";
 import { navLinks } from "@/data";
 import { Logo } from "./Logo";
 
 export function Header() {
   return (
-    <header
-      className="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-sidebar border-b border-border backdrop-blur-xl"
-    >
+    <header className="fixed top-0 inset-x-0 z-50 transition-all duration-300 bg-sidebar border-b border-border backdrop-blur-xl">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link to="/">
@@ -44,9 +42,7 @@ export function Header() {
                               <Icon className="w-4 h-4 text-indigo-400" />
                               {label}
                             </div>
-                            <p className="line-clamp-2 text-xs">
-                              {description}
-                            </p>
+                            <p className="line-clamp-2 text-xs">{description}</p>
                           </Link>
                         </NavigationMenuLink>
                       </li>

@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router";
+import { Circle, FileText, PackageOpen, X } from "lucide-react";
 import { useState } from "react";
-import { PackageOpen, FileText, X, Circle } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/compress-pdf")({
   component: RouteComponent,
@@ -12,9 +12,21 @@ export const Route = createFileRoute("/compress-pdf")({
 type Quality = "high" | "medium" | "low";
 
 const qualityOptions: { value: Quality; label: string; desc: string }[] = [
-  { value: "high", label: "High Quality", desc: "Minimal compression, best visuals" },
-  { value: "medium", label: "Balanced", desc: "Good quality, smaller file size" },
-  { value: "low", label: "Maximum Compression", desc: "Smallest size, reduced quality" },
+  {
+    value: "high",
+    label: "High Quality",
+    desc: "Minimal compression, best visuals",
+  },
+  {
+    value: "medium",
+    label: "Balanced",
+    desc: "Good quality, smaller file size",
+  },
+  {
+    value: "low",
+    label: "Maximum Compression",
+    desc: "Smallest size, reduced quality",
+  },
 ];
 
 function RouteComponent() {
@@ -41,10 +53,7 @@ function RouteComponent() {
 
         {/* Drop Zone */}
         {!file ? (
-          <DropZoneFileInput
-            multiple={false}
-            onFilesChanged={handleFileAdded}
-          />
+          <DropZoneFileInput multiple={false} onFilesChanged={handleFileAdded} />
         ) : (
           <div className="space-y-6">
             {/* File Card */}
@@ -64,7 +73,9 @@ function RouteComponent() {
 
             {/* Compression Level */}
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 space-y-3">
-              <p className="text-sm text-slate-400 font-medium uppercase tracking-wider mb-4">Compression Level</p>
+              <p className="text-sm text-slate-400 font-medium uppercase tracking-wider mb-4">
+                Compression Level
+              </p>
               {qualityOptions.map((opt) => (
                 <Button
                   key={opt.value}
@@ -80,11 +91,18 @@ function RouteComponent() {
                   <Circle
                     className={cn(
                       "w-4 h-4 shrink-0",
-                      quality === opt.value ? "text-emerald-400 fill-emerald-400" : "text-slate-600",
+                      quality === opt.value
+                        ? "text-emerald-400 fill-emerald-400"
+                        : "text-slate-600",
                     )}
                   />
                   <div>
-                    <p className={cn("text-sm font-medium", quality === opt.value ? "text-emerald-300" : "text-slate-300")}>
+                    <p
+                      className={cn(
+                        "text-sm font-medium",
+                        quality === opt.value ? "text-emerald-300" : "text-slate-300",
+                      )}
+                    >
                       {opt.label}
                     </p>
                     <p className="text-xs text-slate-500 mt-0.5">{opt.desc}</p>

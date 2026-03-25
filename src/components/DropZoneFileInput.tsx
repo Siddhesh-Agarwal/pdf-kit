@@ -1,5 +1,5 @@
-import { useState, useCallback } from "react";
 import { Upload } from "lucide-react";
+import { useCallback, useState } from "react";
 import { cn } from "@/lib/utils";
 
 interface DropZoneFileInputProps {
@@ -21,14 +21,12 @@ export function DropZoneFileInput({
     (e: React.DragEvent) => {
       e.preventDefault();
       setDragging(false);
-      const dropped = Array.from(e.dataTransfer.files).filter(
-        (f) => f.type === "application/pdf"
-      );
+      const dropped = Array.from(e.dataTransfer.files).filter((f) => f.type === "application/pdf");
       if (dropped.length > 0) {
         onFilesChanged(multiple ? dropped : [dropped[0]]);
       }
     },
-    [multiple, onFilesChanged]
+    [multiple, onFilesChanged],
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,7 +52,7 @@ export function DropZoneFileInput({
       onDragLeave={() => setDragging(false)}
       className={cn(
         "relative border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-200 cursor-pointer",
-        getThemeClasses()
+        getThemeClasses(),
       )}
     >
       <input

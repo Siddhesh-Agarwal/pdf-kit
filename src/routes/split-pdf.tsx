@@ -1,9 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router"
+import { createFileRoute } from "@tanstack/react-router";
+import { FileTextIcon, ScissorsIcon, XIcon } from "lucide-react";
 import { useState } from "react";
-import { ScissorsIcon, FileTextIcon, XIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/split-pdf")({
   component: RouteComponent,
@@ -29,15 +29,14 @@ function RouteComponent() {
           <h1 className="text-4xl font-bold bg-linear-to-r from-white to-violet-300 bg-clip-text text-transparent mb-3">
             Split PDF
           </h1>
-          <p className="text-slate-400 text-lg">Extract pages or split a PDF into multiple files.</p>
+          <p className="text-slate-400 text-lg">
+            Extract pages or split a PDF into multiple files.
+          </p>
         </div>
 
         {/* Drop Zone */}
         {!file ? (
-          <DropZoneFileInput
-            multiple={false}
-            onFilesChanged={handleFileAdded}
-          />
+          <DropZoneFileInput multiple={false} onFilesChanged={handleFileAdded} />
         ) : (
           <div className="space-y-6">
             {/* Selected File Card */}
@@ -57,7 +56,9 @@ function RouteComponent() {
 
             {/* Split Options */}
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 space-y-5">
-              <p className="text-sm text-slate-400 font-medium uppercase tracking-wider">Split Options</p>
+              <p className="text-sm text-slate-400 font-medium uppercase tracking-wider">
+                Split Options
+              </p>
 
               <div className="flex gap-3">
                 {(["range", "every"] as const).map((mode) => (
@@ -79,7 +80,9 @@ function RouteComponent() {
 
               {splitMode === "range" && (
                 <div>
-                  <label className="text-xs text-slate-500 mb-2 block">Page range (e.g. 1-3, 5, 7-9)</label>
+                  <label className="text-xs text-slate-500 mb-2 block">
+                    Page range (e.g. 1-3, 5, 7-9)
+                  </label>
                   <input
                     type="text"
                     value={pageRange}

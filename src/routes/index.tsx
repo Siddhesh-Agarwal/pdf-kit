@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Merge, Scissors, PackageOpen, Zap, ChevronRight } from "lucide-react";
+import { ChevronRight, Merge, PackageOpen, Scissors, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/")({
@@ -60,54 +60,71 @@ function RouteComponent() {
             Free PDF tools, no sign-up required
           </div>
           <h1 className="text-5xl sm:text-6xl font-bold text-foreground leading-tight mb-6">
-            Your PDF Toolkit,<br />Simplified
+            Your PDF Toolkit,
+            <br />
+            Simplified
           </h1>
           <p className="text-muted-foreground text-lg max-w-xl mx-auto">
-            Merge, split, and compress PDF files instantly — right in your browser, private and fast.
+            Merge, split, and compress PDF files instantly — right in your browser, private and
+            fast.
           </p>
         </div>
 
         {/* Tool Cards */}
         <div className="grid sm:grid-cols-3 gap-5">
-          {tools.map(({ to, label, description, icon: Icon, gradient, border, iconBg, badge, arrow }) => (
-            <Link
-              key={to}
-              to={to}
-              className={cn(
-                "group relative flex flex-col p-6 rounded-2xl border border-slate-700/60 backdrop-blur-sm",
-                "transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
-                "bg-gradient-to-br",
-                gradient,
-                border,
-              )}
-            >
-              {/* Icon */}
-              <div className={cn(
-                "inline-flex items-center justify-center w-12 h-12 rounded-xl border mb-5",
-                "transition-transform duration-200 group-hover:scale-110",
-                iconBg,
-              )}>
-                <Icon className="w-6 h-6 text-primary" />
-              </div>
+          {tools.map(
+            ({ to, label, description, icon: Icon, gradient, border, iconBg, badge, arrow }) => (
+              <Link
+                key={to}
+                to={to}
+                className={cn(
+                  "group relative flex flex-col p-6 rounded-2xl border border-slate-700/60 backdrop-blur-sm",
+                  "transition-all duration-300 hover:shadow-xl hover:-translate-y-1",
+                  "bg-gradient-to-br",
+                  gradient,
+                  border,
+                )}
+              >
+                {/* Icon */}
+                <div
+                  className={cn(
+                    "inline-flex items-center justify-center w-12 h-12 rounded-xl border mb-5",
+                    "transition-transform duration-200 group-hover:scale-110",
+                    iconBg,
+                  )}
+                >
+                  <Icon className="w-6 h-6 text-primary" />
+                </div>
 
-              {/* Label + Arrow */}
-              <div className="flex items-center justify-between mb-2">
-                <h2 className="text-lg font-semibold text-foreground">{label}</h2>
-                <ChevronRight className={cn("w-4 h-4 transition-transform duration-200 group-hover:translate-x-1", arrow)} />
-              </div>
+                {/* Label + Arrow */}
+                <div className="flex items-center justify-between mb-2">
+                  <h2 className="text-lg font-semibold text-foreground">{label}</h2>
+                  <ChevronRight
+                    className={cn(
+                      "w-4 h-4 transition-transform duration-200 group-hover:translate-x-1",
+                      arrow,
+                    )}
+                  />
+                </div>
 
-              {/* Description */}
-              <p className="text-muted-foreground text-sm leading-relaxed mb-5">{description}</p>
+                {/* Description */}
+                <p className="text-muted-foreground text-sm leading-relaxed mb-5">{description}</p>
 
-              {/* Badge */}
-              <div className="mt-auto">
-                <span className={cn("inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border", badge)}>
-                  <Zap className="w-3 h-3" />
-                  Free & instant
-                </span>
-              </div>
-            </Link>
-          ))}
+                {/* Badge */}
+                <div className="mt-auto">
+                  <span
+                    className={cn(
+                      "inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border",
+                      badge,
+                    )}
+                  >
+                    <Zap className="w-3 h-3" />
+                    Free & instant
+                  </span>
+                </div>
+              </Link>
+            ),
+          )}
         </div>
       </div>
     </div>
