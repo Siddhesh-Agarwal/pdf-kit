@@ -19,6 +19,7 @@ import { useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { SortableFileItem } from "@/components/SortableFileItem";
 import { Button } from "@/components/ui/button";
+import { mergePDFs } from "@/lib/pdf";
 
 export const Route = createFileRoute("/merge-pdf")({
   component: RouteComponent,
@@ -26,6 +27,7 @@ export const Route = createFileRoute("/merge-pdf")({
 
 function RouteComponent() {
   const [files, setFiles] = useState<File[]>([]);
+  const [isMerging, setIsMerging] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -54,6 +56,19 @@ function RouteComponent() {
     setFiles((prev) => prev.filter((_, i) => i !== index));
   };
 
+  const handleMergePDFs = async () => {
+    setIsMerging(true);
+    const mergedPdf = await mergePDFs(files);
+    setIsMerging(false);
+    const url = URL.createObjectURL(mergedPdf);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "merged.pdf";
+    a.click();
+    URL.revokeObjectURL(url);
+    a.remove();
+  };
+
   return (
     <div className="min-h-screen">
       <div className="max-w-3xl mx-auto px-6 py-20">
@@ -62,9 +77,7 @@ function RouteComponent() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 mb-6">
             <CopyIcon className="w-8 h-8 text-indigo-400" />
           </div>
-          <h1 className="text-4xl font-bold bg-indigo-500/75 bg-clip-text text-transparent mb-3">
-            Merge PDF
-          </h1>
+          <h1 className="text-4xl font-bold text-indigo-500/75 bg-clip-text mb-3">Merge PDF</h1>
           <p className="text-muted-foreground text-lg">
             Combine multiple PDF files into one document.
           </p>
@@ -98,8 +111,9 @@ function RouteComponent() {
             </DndContext>
 
             <Button
-              disabled={files.length < 2}
+              disabled={files.length < 2 || isMerging}
               className="w-full mt-4 bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/20"
+              onClick={handleMergePDFs}
             >
               Merge {files.length} Files
             </Button>
