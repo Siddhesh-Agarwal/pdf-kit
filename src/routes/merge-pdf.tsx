@@ -11,16 +11,14 @@ import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
-  useSortable,
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
 import { createFileRoute } from "@tanstack/react-router";
-import { CopyIcon, FileTextIcon, GripVerticalIcon, XIcon } from "lucide-react";
+import { CopyIcon } from "lucide-react";
 import { useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
+import { SortableFileItem } from "@/components/SortableFileItem";
 import { Button } from "@/components/ui/button";
-import hr from "@tsmx/human-readable"
 
 export const Route = createFileRoute("/merge-pdf")({
   component: RouteComponent,
@@ -67,7 +65,9 @@ function RouteComponent() {
           <h1 className="text-4xl font-bold bg-indigo-500/75 bg-clip-text text-transparent mb-3">
             Merge PDF
           </h1>
-          <p className="text-slate-400 text-lg">Combine multiple PDF files into one document.</p>
+          <p className="text-muted-foreground text-lg">
+            Combine multiple PDF files into one document.
+          </p>
         </div>
 
         {/* Drop Zone */}
@@ -105,58 +105,6 @@ function RouteComponent() {
             </Button>
           </div>
         )}
-      </div>
-    </div>
-  );
-}
-
-function SortableFileItem({
-  file,
-  index,
-  removeFile,
-  isMultiple,
-}: {
-  file: File;
-  index: number;
-  removeFile: (i: number) => void;
-  isMultiple: boolean;
-}) {
-  const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
-    id: file.name,
-  });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
-
-  return (
-    <div
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
-      className="flex items-center gap-3 bg-card border border-border rounded-xl px-4 py-3 cursor-grab active:cursor-grabbing touch-none"
-    >
-      {isMultiple && <GripVerticalIcon className="size-5 text-muted-foreground hidden sm:block" />}
-      <div className="flex-1 flex items-center gap-2 truncate">
-        <FileTextIcon className="size-4 text-indigo-400 shrink-0" />
-        <span className="text-sm text-card-foreground truncate">{file.name}</span>
-      </div>
-      <div className="flex items-center gap-2">
-        <span className="text-xs text-muted-foreground whitespace-nowrap">
-          {hr.fromBytes(file.size, { fixedPrecision: 1 })}
-        </span>
-        <div onPointerDown={(e) => e.stopPropagation()}>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => removeFile(index)}
-            className="w-6 h-6 text-slate-600 hover:text-red-400 hover:bg-transparent relative z-50 shrink-0"
-          >
-            <XIcon className="w-4 h-4" />
-          </Button>
-        </div>
       </div>
     </div>
   );

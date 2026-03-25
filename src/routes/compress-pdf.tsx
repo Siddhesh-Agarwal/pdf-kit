@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Circle, FileText, PackageOpen, X } from "lucide-react";
+import { CircleIcon, PackageOpenIcon } from "lucide-react";
 import { useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
+import { FileItem } from "@/components/FileItem";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
@@ -43,12 +44,12 @@ function RouteComponent() {
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-emerald-500/20 border border-emerald-500/30 mb-6">
-            <PackageOpen className="w-8 h-8 text-emerald-400" />
+            <PackageOpenIcon className="w-8 h-8 text-emerald-400" />
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-emerald-300 bg-clip-text text-transparent mb-3">
-            Compress PDF
-          </h1>
-          <p className="text-slate-400 text-lg">Reduce file size while maintaining quality.</p>
+          <h1 className="text-4xl font-bold text-emerald-300 bg-clip-text mb-3">Compress PDF</h1>
+          <p className="text-muted-foreground text-lg">
+            Reduce file size while maintaining quality.
+          </p>
         </div>
 
         {/* Drop Zone */}
@@ -57,19 +58,7 @@ function RouteComponent() {
         ) : (
           <div className="space-y-6">
             {/* File Card */}
-            <div className="flex items-center gap-3 bg-slate-800/50 border border-slate-700/50 rounded-xl px-4 py-3">
-              <FileText className="w-5 h-5 text-emerald-400 shrink-0" />
-              <span className="flex-1 text-sm text-slate-300 truncate">{file.name}</span>
-              <span className="text-xs text-slate-500">{(file.size / 1024).toFixed(0)} KB</span>
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setFile(null)}
-                className="w-6 h-6 text-slate-600 hover:text-red-400 hover:bg-transparent"
-              >
-                <X className="w-4 h-4" />
-              </Button>
-            </div>
+            <FileItem file={file} onRemove={() => setFile(null)} />
 
             {/* Compression Level */}
             <div className="bg-slate-800/30 border border-slate-700/50 rounded-2xl p-6 space-y-3">
@@ -88,7 +77,7 @@ function RouteComponent() {
                       : "border-slate-700 bg-slate-800/30 hover:border-slate-600 hover:bg-slate-800/30",
                   )}
                 >
-                  <Circle
+                  <CircleIcon
                     className={cn(
                       "w-4 h-4 shrink-0",
                       quality === opt.value
