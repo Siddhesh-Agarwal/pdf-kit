@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { splitPDF } from "@/lib/pdf";
+import { downloadBlob } from "@/lib/utils";
 
 export const Route = createFileRoute("/split-pdf")({
   component: RouteComponent,
@@ -43,13 +44,7 @@ function RouteComponent() {
     const pageArray = Array.from(pages).sort((a, b) => a - b);
     const blob = await splitPDF(file, pageArray);
     setIsLoading(false);
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "split.pdf";
-    a.click();
-    URL.revokeObjectURL(url);
-    a.remove();
+    downloadBlob(blob, "split.pdf");
   };
 
   return (

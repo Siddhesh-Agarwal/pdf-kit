@@ -20,6 +20,7 @@ import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { SortableFileItem } from "@/components/SortableFileItem";
 import { Button } from "@/components/ui/button";
 import { mergePDFs } from "@/lib/pdf";
+import { downloadBlob } from "@/lib/utils";
 
 export const Route = createFileRoute("/merge-pdf")({
   component: RouteComponent,
@@ -60,13 +61,7 @@ function RouteComponent() {
     setIsMerging(true);
     const blob = await mergePDFs(files);
     setIsMerging(false);
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "merged.pdf";
-    a.click();
-    URL.revokeObjectURL(url);
-    a.remove();
+    downloadBlob(blob, "merged.pdf");
   };
 
   return (
