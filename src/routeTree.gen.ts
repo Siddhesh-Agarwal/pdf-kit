@@ -10,7 +10,9 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SplitPdfRouteImport } from './routes/split-pdf'
+import { Route as ReorganizePdfRouteImport } from './routes/reorganize-pdf'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as MetadataEditorRouteImport } from './routes/metadata-editor'
 import { Route as MergePdfRouteImport } from './routes/merge-pdf'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
@@ -20,9 +22,19 @@ const SplitPdfRoute = SplitPdfRouteImport.update({
   path: '/split-pdf',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ReorganizePdfRoute = ReorganizePdfRouteImport.update({
+  id: '/reorganize-pdf',
+  path: '/reorganize-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MetadataEditorRoute = MetadataEditorRouteImport.update({
+  id: '/metadata-editor',
+  path: '/metadata-editor',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MergePdfRoute = MergePdfRouteImport.update({
@@ -45,14 +57,18 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/merge-pdf': typeof MergePdfRoute
+  '/metadata-editor': typeof MetadataEditorRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/reorganize-pdf': typeof ReorganizePdfRoute
   '/split-pdf': typeof SplitPdfRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/merge-pdf': typeof MergePdfRoute
+  '/metadata-editor': typeof MetadataEditorRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/reorganize-pdf': typeof ReorganizePdfRoute
   '/split-pdf': typeof SplitPdfRoute
 }
 export interface FileRoutesById {
@@ -60,20 +76,38 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/merge-pdf': typeof MergePdfRoute
+  '/metadata-editor': typeof MetadataEditorRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/reorganize-pdf': typeof ReorganizePdfRoute
   '/split-pdf': typeof SplitPdfRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/merge-pdf' | '/privacy-policy' | '/split-pdf'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/merge-pdf'
+    | '/metadata-editor'
+    | '/privacy-policy'
+    | '/reorganize-pdf'
+    | '/split-pdf'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/merge-pdf' | '/privacy-policy' | '/split-pdf'
+  to:
+    | '/'
+    | '/about'
+    | '/merge-pdf'
+    | '/metadata-editor'
+    | '/privacy-policy'
+    | '/reorganize-pdf'
+    | '/split-pdf'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/merge-pdf'
+    | '/metadata-editor'
     | '/privacy-policy'
+    | '/reorganize-pdf'
     | '/split-pdf'
   fileRoutesById: FileRoutesById
 }
@@ -81,7 +115,9 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   MergePdfRoute: typeof MergePdfRoute
+  MetadataEditorRoute: typeof MetadataEditorRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  ReorganizePdfRoute: typeof ReorganizePdfRoute
   SplitPdfRoute: typeof SplitPdfRoute
 }
 
@@ -94,11 +130,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SplitPdfRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/reorganize-pdf': {
+      id: '/reorganize-pdf'
+      path: '/reorganize-pdf'
+      fullPath: '/reorganize-pdf'
+      preLoaderRoute: typeof ReorganizePdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy-policy': {
       id: '/privacy-policy'
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/metadata-editor': {
+      id: '/metadata-editor'
+      path: '/metadata-editor'
+      fullPath: '/metadata-editor'
+      preLoaderRoute: typeof MetadataEditorRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/merge-pdf': {
@@ -129,7 +179,9 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   MergePdfRoute: MergePdfRoute,
+  MetadataEditorRoute: MetadataEditorRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  ReorganizePdfRoute: ReorganizePdfRoute,
   SplitPdfRoute: SplitPdfRoute,
 }
 export const routeTree = rootRouteImport

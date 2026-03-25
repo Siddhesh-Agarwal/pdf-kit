@@ -10,7 +10,7 @@ export function Footer() {
         <div className="grid sm:grid-cols-3 gap-10 mb-10">
           {/* Brand */}
           <div className="sm:col-span-1">
-            <Link to="/" className="mb-4 w-fit">
+            <Link to="/" className="block mb-4">
               <Logo />
             </Link>
             <p className="text-sm text-sidebar-foreground leading-relaxed max-w-xs">

@@ -27,7 +27,7 @@ export function Header() {
                   Tools
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="grid w-[300px] gap-3 p-4 md:w-[450px] md:grid-cols-2 rounded-xl shadow-xl">
+                  <ul className="grid w-75 gap-3 p-4 md:w-125 md:grid-cols-2 rounded-xl shadow-xl">
                     {tools.map(({ to, label, icon: Icon, description }) => (
                       <li key={to}>
                         <NavigationMenuLink>

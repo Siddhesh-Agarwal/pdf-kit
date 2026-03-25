@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ChevronRightIcon, ZapIcon } from "lucide-react";
+import { ChevronRightIcon } from "lucide-react";
 import { tools } from "@/data";
 import { cn } from "@/lib/utils";
 
@@ -12,9 +12,9 @@ function RouteComponent() {
     <div className="min-h-screen">
       {/* Decorative blobs */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -left-40 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl" />
-        <div className="absolute top-1/3 right-0 w-80 h-80 bg-violet-600/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-1/3 w-72 h-72 bg-emerald-600/10 rounded-full blur-3xl" />
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute top-1/3 right-0 w-80 h-80 bg-primary/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-1/3 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
       </div>
 
       <div className="relative max-w-5xl mx-auto px-6 py-24">
@@ -36,59 +36,45 @@ function RouteComponent() {
         </div>
 
         {/* Tool Cards */}
-        <div className="grid sm:grid-cols-3 gap-5">
-          {tools.map(
-            ({ to, label, description, icon: Icon, gradient, border, iconBg, badge, arrow }) => (
-              <Link
-                key={to}
-                to={to}
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {tools.map(({ to, label, description, icon: Icon, gradient, border, iconBg, arrow }) => (
+            <Link
+              key={to}
+              to={to}
+              className={cn(
+                "group relative flex flex-col p-6 rounded-2xl border border-border backdrop-blur-sm",
+                "transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-linear-to-br",
+                gradient,
+                border,
+              )}
+            >
+              {/* Icon */}
+              <div
                 className={cn(
-                  "group relative flex flex-col p-6 rounded-2xl border border-border backdrop-blur-sm",
-                  "transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-linear-to-br",
-                  gradient,
-                  border,
+                  "inline-flex items-center justify-center w-12 h-12 rounded-xl border mb-5",
+                  "transition-transform duration-200 group-hover:scale-110",
+                  iconBg,
+                  arrow,
                 )}
               >
-                {/* Icon */}
-                <div
+                <Icon className={cn("w-6 h-6", arrow)} />
+              </div>
+
+              {/* Label + Arrow */}
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-lg font-semibold text-foreground">{label}</h2>
+                <ChevronRightIcon
                   className={cn(
-                    "inline-flex items-center justify-center w-12 h-12 rounded-xl border mb-5",
-                    "transition-transform duration-200 group-hover:scale-110",
-                    iconBg,
+                    "w-4 h-4 transition-transform duration-200 group-hover:translate-x-1",
+                    arrow,
                   )}
-                >
-                  <Icon className={cn("w-6 h-6", arrow)} />
-                </div>
+                />
+              </div>
 
-                {/* Label + Arrow */}
-                <div className="flex items-center justify-between mb-2">
-                  <h2 className="text-lg font-semibold text-foreground">{label}</h2>
-                  <ChevronRightIcon
-                    className={cn(
-                      "w-4 h-4 transition-transform duration-200 group-hover:translate-x-1",
-                      arrow,
-                    )}
-                  />
-                </div>
-
-                {/* Description */}
-                <p className="text-muted-foreground text-sm leading-relaxed mb-5">{description}</p>
-
-                {/* Badge */}
-                <div className="mt-auto">
-                  <span
-                    className={cn(
-                      "inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border",
-                      badge,
-                    )}
-                  >
-                    <ZapIcon className="w-3 h-3" />
-                    Free & instant
-                  </span>
-                </div>
-              </Link>
-            ),
-          )}
+              {/* Description */}
+              <p className="text-muted-foreground text-sm leading-relaxed mb-5">{description}</p>
+            </Link>
+          ))}
         </div>
       </div>
     </div>
