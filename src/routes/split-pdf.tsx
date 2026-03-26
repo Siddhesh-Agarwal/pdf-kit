@@ -42,7 +42,7 @@ function RouteComponent() {
     const pageArray = Array.from(pages).sort((a, b) => a - b);
     const blob = await splitPDF(file, pageArray);
     setIsLoading(false);
-    downloadBlob(blob, "split.pdf");
+    downloadBlob(blob, `split-${file.name}`);
   };
 
   return (

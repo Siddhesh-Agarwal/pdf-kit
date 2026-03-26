@@ -25,7 +25,7 @@ export const tools = [
   },
   {
     // blue
-    to: "reorganize-pdf",
+    to: "/reorganize-pdf",
     label: "Reorganize PDF",
     icon: Repeat2Icon,
     description: "Add, Remove, Copy, and Reorder pages in a PDF",
@@ -36,10 +36,10 @@ export const tools = [
   },
   {
     // green
-    to: "metadata-editor",
+    to: "/metadata-editor",
     label: "Metadata Editor",
     icon: FilePenLineIcon,
-    description: "Edit the metadata of PDFs in seconds",
+    description: "Edit the metadata of a PDF (title, author, subject, etc.)",
     gradient: "from-green-500/20 to-green-600/10",
     border: "hover:border-green-500/60",
     iconBg: "bg-green-500/20 border-green-500/30",

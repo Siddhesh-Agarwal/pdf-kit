@@ -26,3 +26,40 @@ export async function splitPDF(pdf: File, pageNumbers: number[]): Promise<Blob> 
 
   return new Blob([mergedBytes as BlobPart], { type: "application/pdf" });
 }
+
+export type Metadata = {
+  author: string;
+  title: string;
+  subject: string;
+  creator: string;
+  producer: string;
+  creationDate: Date;
+  modificationDate: Date;
+};
+
+export async function getMetadata(pdf: File): Promise<Partial<Metadata>> {
+  const pdfDoc = await PDFDocument.load(await pdf.arrayBuffer());
+  return {
+    author: pdfDoc.getAuthor(),
+    title: pdfDoc.getTitle(),
+    subject: pdfDoc.getSubject(),
+    creator: pdfDoc.getCreator(),
+    producer: pdfDoc.getProducer(),
+    creationDate: pdfDoc.getCreationDate(),
+    modificationDate: pdfDoc.getModificationDate(),
+  };
+}
+
+export async function setMetadata(pdf: File, metadata: Partial<Metadata>): Promise<Blob> {
+  const pdfDoc = await PDFDocument.load(await pdf.arrayBuffer());
+  if (metadata.author) pdfDoc.setAuthor(metadata.author);
+  if (metadata.title) pdfDoc.setTitle(metadata.title);
+  if (metadata.subject) pdfDoc.setSubject(metadata.subject);
+  if (metadata.creator) pdfDoc.setCreator(metadata.creator);
+  if (metadata.producer) pdfDoc.setProducer(metadata.producer);
+  if (metadata.creationDate) pdfDoc.setCreationDate(metadata.creationDate);
+  if (metadata.modificationDate) pdfDoc.setModificationDate(metadata.modificationDate);
+  const mergedBytes = await pdfDoc.save();
+
+  return new Blob([mergedBytes as BlobPart], { type: "application/pdf" });
+}
