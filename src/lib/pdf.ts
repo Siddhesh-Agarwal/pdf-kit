@@ -1,11 +1,15 @@
 import { PDFDocument } from "pdf-lib";
 
+function getBlob(mergedBytes: Uint8Array<ArrayBufferLike>) {
+  const arr = new Uint8Array(mergedBytes);
+  return new Blob([arr], { type: "application/pdf" });
+}
+
 export async function mergePDFs(pdfs: File[]): Promise<Blob> {
   if (pdfs.length === 0) {
     return new Blob([], { type: "application/pdf" });
   }
   const mergedPdf = await PDFDocument.create();
-
   for (const pdf of pdfs) {
     const arrayBuffer = await pdf.arrayBuffer();
     const pdfDoc = await PDFDocument.load(arrayBuffer);
@@ -13,8 +17,7 @@ export async function mergePDFs(pdfs: File[]): Promise<Blob> {
     copiedPages.forEach((page) => mergedPdf.addPage(page));
   }
   const mergedBytes = await mergedPdf.save();
-
-  return new Blob([mergedBytes as BlobPart], { type: "application/pdf" });
+  return getBlob(mergedBytes);
 }
 
 export async function splitPDF(pdf: File, pageNumbers: number[]): Promise<Blob> {
@@ -23,8 +26,7 @@ export async function splitPDF(pdf: File, pageNumbers: number[]): Promise<Blob> 
   const mergedPdf = await PDFDocument.create();
   copiedPages.forEach((page) => mergedPdf.addPage(page));
   const mergedBytes = await mergedPdf.save();
-
-  return new Blob([mergedBytes as BlobPart], { type: "application/pdf" });
+  return getBlob(mergedBytes);
 }
 
 export type Metadata = {
@@ -60,6 +62,5 @@ export async function setMetadata(pdf: File, metadata: Partial<Metadata>): Promi
   if (metadata.creationDate) pdfDoc.setCreationDate(metadata.creationDate);
   if (metadata.modificationDate) pdfDoc.setModificationDate(metadata.modificationDate);
   const mergedBytes = await pdfDoc.save();
-
-  return new Blob([mergedBytes as BlobPart], { type: "application/pdf" });
+  return getBlob(mergedBytes);
 }
