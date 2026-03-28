@@ -25,7 +25,7 @@ const formSchema = z
   })
   .partial();
 
-export const Route = createFileRoute("/metadata-editor")({
+export const Route = createFileRoute("/(tools)/metadata-editor")({
   component: RouteComponent,
 });
 

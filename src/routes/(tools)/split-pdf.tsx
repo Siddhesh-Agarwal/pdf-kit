@@ -9,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import { splitPDF } from "@/lib/pdf";
 import { downloadBlob } from "@/lib/utils";
 
-export const Route = createFileRoute("/split-pdf")({
+export const Route = createFileRoute("/(tools)/split-pdf")({
   component: RouteComponent,
 });
 

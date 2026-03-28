@@ -9,36 +9,16 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as SplitPdfRouteImport } from './routes/split-pdf'
-import { Route as ReorganizePdfRouteImport } from './routes/reorganize-pdf'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
-import { Route as MetadataEditorRouteImport } from './routes/metadata-editor'
-import { Route as MergePdfRouteImport } from './routes/merge-pdf'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as toolsSplitPdfRouteImport } from './routes/(tools)/split-pdf'
+import { Route as toolsReorganizePdfRouteImport } from './routes/(tools)/reorganize-pdf'
+import { Route as toolsMetadataEditorRouteImport } from './routes/(tools)/metadata-editor'
+import { Route as toolsMergePdfRouteImport } from './routes/(tools)/merge-pdf'
 
-const SplitPdfRoute = SplitPdfRouteImport.update({
-  id: '/split-pdf',
-  path: '/split-pdf',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ReorganizePdfRoute = ReorganizePdfRouteImport.update({
-  id: '/reorganize-pdf',
-  path: '/reorganize-pdf',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MetadataEditorRoute = MetadataEditorRouteImport.update({
-  id: '/metadata-editor',
-  path: '/metadata-editor',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MergePdfRoute = MergePdfRouteImport.update({
-  id: '/merge-pdf',
-  path: '/merge-pdf',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -46,103 +26,95 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const toolsSplitPdfRoute = toolsSplitPdfRouteImport.update({
+  id: '/(tools)/split-pdf',
+  path: '/split-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const toolsReorganizePdfRoute = toolsReorganizePdfRouteImport.update({
+  id: '/(tools)/reorganize-pdf',
+  path: '/reorganize-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const toolsMetadataEditorRoute = toolsMetadataEditorRouteImport.update({
+  id: '/(tools)/metadata-editor',
+  path: '/metadata-editor',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const toolsMergePdfRoute = toolsMergePdfRouteImport.update({
+  id: '/(tools)/merge-pdf',
+  path: '/merge-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/merge-pdf': typeof MergePdfRoute
-  '/metadata-editor': typeof MetadataEditorRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/reorganize-pdf': typeof ReorganizePdfRoute
-  '/split-pdf': typeof SplitPdfRoute
+  '/merge-pdf': typeof toolsMergePdfRoute
+  '/metadata-editor': typeof toolsMetadataEditorRoute
+  '/reorganize-pdf': typeof toolsReorganizePdfRoute
+  '/split-pdf': typeof toolsSplitPdfRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/merge-pdf': typeof MergePdfRoute
-  '/metadata-editor': typeof MetadataEditorRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/reorganize-pdf': typeof ReorganizePdfRoute
-  '/split-pdf': typeof SplitPdfRoute
+  '/merge-pdf': typeof toolsMergePdfRoute
+  '/metadata-editor': typeof toolsMetadataEditorRoute
+  '/reorganize-pdf': typeof toolsReorganizePdfRoute
+  '/split-pdf': typeof toolsSplitPdfRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/merge-pdf': typeof MergePdfRoute
-  '/metadata-editor': typeof MetadataEditorRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
-  '/reorganize-pdf': typeof ReorganizePdfRoute
-  '/split-pdf': typeof SplitPdfRoute
+  '/(tools)/merge-pdf': typeof toolsMergePdfRoute
+  '/(tools)/metadata-editor': typeof toolsMetadataEditorRoute
+  '/(tools)/reorganize-pdf': typeof toolsReorganizePdfRoute
+  '/(tools)/split-pdf': typeof toolsSplitPdfRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/privacy-policy'
     | '/merge-pdf'
     | '/metadata-editor'
-    | '/privacy-policy'
     | '/reorganize-pdf'
     | '/split-pdf'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/privacy-policy'
     | '/merge-pdf'
     | '/metadata-editor'
-    | '/privacy-policy'
     | '/reorganize-pdf'
     | '/split-pdf'
   id:
     | '__root__'
     | '/'
-    | '/merge-pdf'
-    | '/metadata-editor'
     | '/privacy-policy'
-    | '/reorganize-pdf'
-    | '/split-pdf'
+    | '/(tools)/merge-pdf'
+    | '/(tools)/metadata-editor'
+    | '/(tools)/reorganize-pdf'
+    | '/(tools)/split-pdf'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  MergePdfRoute: typeof MergePdfRoute
-  MetadataEditorRoute: typeof MetadataEditorRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
-  ReorganizePdfRoute: typeof ReorganizePdfRoute
-  SplitPdfRoute: typeof SplitPdfRoute
+  toolsMergePdfRoute: typeof toolsMergePdfRoute
+  toolsMetadataEditorRoute: typeof toolsMetadataEditorRoute
+  toolsReorganizePdfRoute: typeof toolsReorganizePdfRoute
+  toolsSplitPdfRoute: typeof toolsSplitPdfRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/split-pdf': {
-      id: '/split-pdf'
-      path: '/split-pdf'
-      fullPath: '/split-pdf'
-      preLoaderRoute: typeof SplitPdfRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/reorganize-pdf': {
-      id: '/reorganize-pdf'
-      path: '/reorganize-pdf'
-      fullPath: '/reorganize-pdf'
-      preLoaderRoute: typeof ReorganizePdfRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/privacy-policy': {
       id: '/privacy-policy'
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/metadata-editor': {
-      id: '/metadata-editor'
-      path: '/metadata-editor'
-      fullPath: '/metadata-editor'
-      preLoaderRoute: typeof MetadataEditorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/merge-pdf': {
-      id: '/merge-pdf'
-      path: '/merge-pdf'
-      fullPath: '/merge-pdf'
-      preLoaderRoute: typeof MergePdfRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -152,16 +124,44 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(tools)/split-pdf': {
+      id: '/(tools)/split-pdf'
+      path: '/split-pdf'
+      fullPath: '/split-pdf'
+      preLoaderRoute: typeof toolsSplitPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(tools)/reorganize-pdf': {
+      id: '/(tools)/reorganize-pdf'
+      path: '/reorganize-pdf'
+      fullPath: '/reorganize-pdf'
+      preLoaderRoute: typeof toolsReorganizePdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(tools)/metadata-editor': {
+      id: '/(tools)/metadata-editor'
+      path: '/metadata-editor'
+      fullPath: '/metadata-editor'
+      preLoaderRoute: typeof toolsMetadataEditorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(tools)/merge-pdf': {
+      id: '/(tools)/merge-pdf'
+      path: '/merge-pdf'
+      fullPath: '/merge-pdf'
+      preLoaderRoute: typeof toolsMergePdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  MergePdfRoute: MergePdfRoute,
-  MetadataEditorRoute: MetadataEditorRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
-  ReorganizePdfRoute: ReorganizePdfRoute,
-  SplitPdfRoute: SplitPdfRoute,
+  toolsMergePdfRoute: toolsMergePdfRoute,
+  toolsMetadataEditorRoute: toolsMetadataEditorRoute,
+  toolsReorganizePdfRoute: toolsReorganizePdfRoute,
+  toolsSplitPdfRoute: toolsSplitPdfRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

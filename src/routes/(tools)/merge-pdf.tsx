@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { mergePDFs } from "@/lib/pdf";
 import { downloadBlob } from "@/lib/utils";
 
-export const Route = createFileRoute("/merge-pdf")({
+export const Route = createFileRoute("/(tools)/merge-pdf")({
   component: RouteComponent,
 });
 

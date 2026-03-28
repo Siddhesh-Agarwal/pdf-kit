@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { reorganizePDF } from "@/lib/pdf";
 import { downloadBlob } from "@/lib/utils";
 
-export const Route = createFileRoute("/reorganize-pdf")({
+export const Route = createFileRoute("/(tools)/reorganize-pdf")({
   component: RouteComponent,
 });
 
