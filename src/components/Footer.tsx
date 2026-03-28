@@ -46,11 +46,6 @@ export function Footer() {
             </p>
             <ul className="space-y-2.5">
               <li>
-                <Link to="/about" className="text-sm text-sidebar-foreground">
-                  About
-                </Link>
-              </li>
-              <li>
                 <Link to="/privacy-policy" className="text-sm text-sidebar-foreground">
                   Privacy Policy
                 </Link>
