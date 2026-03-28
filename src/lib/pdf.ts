@@ -29,6 +29,18 @@ export async function splitPDF(pdf: File, pageNumbers: number[]): Promise<Blob> 
   return getBlob(mergedBytes);
 }
 
+export async function reorganizePDF(pdf: File, pageIndices: number[]): Promise<Blob> {
+  const pdfDoc = await PDFDocument.load(await pdf.arrayBuffer());
+  const newPdf = await PDFDocument.create();
+
+  // Copy pages in the specified order
+  const copiedPages = await newPdf.copyPages(pdfDoc, pageIndices);
+  copiedPages.forEach((page) => newPdf.addPage(page));
+
+  const pdfBytes = await newPdf.save();
+  return getBlob(pdfBytes);
+}
+
 export type Metadata = {
   author: string;
   title: string;
