@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Repeat2Icon } from "lucide-react";
 import { useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { FileItem } from "@/components/FileItem";
-import { Repeat2Icon } from "lucide-react";
 
 export const Route = createFileRoute("/reorganize-pdf")({
   component: RouteComponent,
@@ -24,20 +24,15 @@ function RouteComponent() {
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-500/20 border border-blue-500/30 mb-6">
             <Repeat2Icon className="w-8 h-8 text-blue-400" />
           </div>
-          <h1 className="text-4xl font-bold text-blue-400/75 bg-clip-text mb-3">
-            Split PDF
-          </h1>
+          <h1 className="text-4xl font-bold text-blue-400/75 bg-clip-text mb-3">Reorganize PDF</h1>
           <p className="text-muted-foreground text-lg">
-            Extract pages or split a PDF into multiple files.
+            Add, Remove, Copy, and Reorder pages in a PDF.
           </p>
         </div>
 
         {/* Drop Zone */}
         {!file ? (
-          <DropZoneFileInput
-            multiple={false}
-            onFilesChanged={handleFileAdded}
-          />
+          <DropZoneFileInput multiple={false} onFilesChanged={handleFileAdded} />
         ) : (
           <div className="space-y-6">
             {/* Selected File Card */}

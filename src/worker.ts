@@ -8,5 +8,5 @@ export default {
     if (assetResponse.status !== 404) return assetResponse;
 
     return env.ASSETS.fetch(new Request(new URL("/index.html", url.origin)));
-  }
+  },
 };
