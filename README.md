@@ -1,75 +1,78 @@
-# React + TypeScript + Vite
+# 📄 PDF Kit
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Privacy-first, client-side PDF tools for the modern web.**
 
-Currently, two official plugins are available:
+[**Live App**](https://pdfkit.siddhesh.cc/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+PDF Kit is a suite of lightweight, browser-based utilities for managing PDF documents. Unlike traditional PDF editors that upload your sensitive data to a server, **PDF Kit processes everything locally in your browser.** Your files never leave your device.
 
-## React Compiler
+## 🛠️ Built for the Web, Powered by You
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+PDF Kit offers a collection of essential tools for everyday PDF management:
 
-Note: This will impact Vite dev & build performances.
+- **Merge PDF:** Combine multiple documents into a single file with drag-and-drop reordering.
+- **Split PDF:** Extract specific pages or split large documents into individual files.
+- **Reorganize PDF:** Rearrange, rotate, or delete pages with a visual grid interface.
+- **Metadata Editor:** View and update PDF properties like Title, Author, and Subject.
 
-## Expanding the ESLint configuration
+### ⚡ Under the Hood
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Built with the latest web standards for performance and developer productivity:
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Framework:** [React 19](https://react.dev/) with [React Compiler](https://react.dev/learn/react-compiler)
+- **Routing:** [TanStack Router](https://tanstack.com/router) for type-safe, client-side navigation
+- **Styling:** [Tailwind CSS 4](https://tailwindcss.com/) for a modern, utility-first design
+- **PDF Engine:** [pdf-lib](https://pdf-lib.js.org/) & [pdf.js](https://mozilla.github.io/pdf.js/) for high-performance client-side processing
+- **Deployment:** [Cloudflare Pages](https://pages.cloudflare.com/) for global, edge-speed delivery
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🚀 Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Follow these steps to set up the project locally for development.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### Prerequisites
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- [pnpm](https://pnpm.io/) for package management
+- [Node.js](https://nodejs.org/) (LTS recommended)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Local Development
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Siddhesh-Agarwal/pdf-kit.git
+   cd pdf-kit
+   ```
+
+2. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+
+3. Start the development server:
+   ```bash
+   pnpm dev
+   ```
+
+The app will be available at `http://localhost:5173`.
+
+### 🧪 Scripts
+
+- `pnpm dev`: Start the development server with Vite
+- `pnpm build`: Build the project for production
+- `pnpm preview`: Build and preview the production build using `wrangler`
+- `pnpm check`: Run Biome linting and formatting checks
+- `pnpm format`: Automatically format code with Biome
+- `pnpm deploy`: Build and deploy the project to Cloudflare Pages
+
+## 🤝 Contributing
+
+Contributions are welcome! Whether it's fixing a bug or suggesting a new tool, please feel free to submit a Pull Request.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## ⚖️ License
+
+Distributed under the MIT License.
