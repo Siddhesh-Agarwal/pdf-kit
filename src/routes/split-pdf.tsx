@@ -23,26 +23,38 @@ function RouteComponent() {
   };
 
   const handleSubmit = async () => {
-    if (!file) return;
+    if (!file || !pageRange.trim()) return;
     setIsLoading(true);
-    const rangeStrings = pageRange.split(",").map((r) => r.trim());
-    const ranges = rangeStrings.map((r) => r.split("-").map((n) => parseInt(n.trim())));
-    const pages = new Set<number>();
-    for (const range of ranges) {
-      if (range.length === 1) {
-        pages.add(range[0] - 1);
-      } else if (range.length === 2) {
-        for (let i = range[0]; i <= range[1]; i++) {
-          pages.add(i - 1);
+    try {
+      const rangeStrings = pageRange
+        .split(",")
+        .map((r) => r.trim())
+        .filter(Boolean);
+      const ranges = rangeStrings.map((r) => r.split("-").map((n) => parseInt(n.trim())));
+      const pages = new Set<number>();
+      for (const range of ranges) {
+        if (range.length === 1 && !isNaN(range[0])) {
+          pages.add(range[0] - 1);
+        } else if (range.length === 2 && !isNaN(range[0]) && !isNaN(range[1])) {
+          for (let i = range[0]; i <= range[1]; i++) {
+            pages.add(i - 1);
+          }
         }
-      } else {
-        throw new Error("Invalid range: " + range);
       }
+
+      if (pages.size === 0) {
+        setIsLoading(false);
+        return;
+      }
+
+      const pageArray = Array.from(pages).sort((a, b) => a - b);
+      const blob = await splitPDF(file, pageArray);
+      downloadBlob(blob, `split-${file.name}`);
+    } catch (error) {
+      console.error("Error splitting PDF:", error);
+    } finally {
+      setIsLoading(false);
     }
-    const pageArray = Array.from(pages).sort((a, b) => a - b);
-    const blob = await splitPDF(file, pageArray);
-    setIsLoading(false);
-    downloadBlob(blob, `split-${file.name}`);
   };
 
   return (

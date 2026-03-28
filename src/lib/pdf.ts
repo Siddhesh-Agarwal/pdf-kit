@@ -22,8 +22,8 @@ export async function mergePDFs(pdfs: File[]): Promise<Blob> {
 
 export async function splitPDF(pdf: File, pageNumbers: number[]): Promise<Blob> {
   const pdfDoc = await PDFDocument.load(await pdf.arrayBuffer());
-  const copiedPages = await pdfDoc.copyPages(pdfDoc, pageNumbers);
   const mergedPdf = await PDFDocument.create();
+  const copiedPages = await mergedPdf.copyPages(pdfDoc, pageNumbers);
   copiedPages.forEach((page) => mergedPdf.addPage(page));
   const mergedBytes = await mergedPdf.save();
   return getBlob(mergedBytes);
