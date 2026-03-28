@@ -15,18 +15,25 @@ import {
 } from "@dnd-kit/sortable";
 import { SortablePdfPage } from "./SortablePdfPage";
 
+interface PdfPage {
+  id: string;
+  index: number;
+}
+
 interface PdfThumbnailGridProps {
   file: File;
-  pageIndices: number[];
-  onOrderChange: (newIndices: number[]) => void;
-  onRemovePage: (indexToRemove: number) => void;
+  pages: PdfPage[];
+  onOrderChange: (newPages: PdfPage[]) => void;
+  onRemovePage: (idToRemove: string) => void;
+  onCopyPage: (idToCopy: string) => void;
 }
 
 export function PdfThumbnailGrid({
   file,
-  pageIndices,
+  pages,
   onOrderChange,
   onRemovePage,
+  onCopyPage,
 }: PdfThumbnailGridProps) {
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -43,26 +50,24 @@ export function PdfThumbnailGrid({
     const { active, over } = event;
 
     if (over && active.id !== over.id) {
-      const oldIndex = pageIndices.findIndex((idx) => `page-${idx}` === active.id);
-      const newIndex = pageIndices.findIndex((idx) => `page-${idx}` === over.id);
-      onOrderChange(arrayMove(pageIndices, oldIndex, newIndex));
+      const oldIndex = pages.findIndex((p) => p.id === active.id);
+      const newIndex = pages.findIndex((p) => p.id === over.id);
+      onOrderChange(arrayMove(pages, oldIndex, newIndex));
     }
   };
 
   return (
     <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <SortableContext
-        items={pageIndices.map((idx) => `page-${idx}`)}
-        strategy={rectSortingStrategy}
-      >
+      <SortableContext items={pages.map((p) => p.id)} strategy={rectSortingStrategy}>
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {pageIndices.map((pageIndex) => (
+          {pages.map((page) => (
             <SortablePdfPage
-              key={`page-${pageIndex}`}
-              id={`page-${pageIndex}`}
+              key={page.id}
+              id={page.id}
               file={file}
-              pageIndex={pageIndex}
-              onRemove={() => onRemovePage(pageIndex)}
+              pageIndex={page.index}
+              onRemove={() => onRemovePage(page.id)}
+              onCopy={() => onCopyPage(page.id)}
             />
           ))}
         </div>
