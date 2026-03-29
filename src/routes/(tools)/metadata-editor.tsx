@@ -1,11 +1,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute } from "@tanstack/react-router";
-import { Loader2Icon, Repeat2Icon } from "lucide-react";
+import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import z from "zod/v3";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { FileItem } from "@/components/FileItem";
+import { ToolHeader } from "@/components/tool-header";
 import { Button } from "@/components/ui/button";
 import { DateInput } from "@/components/ui/date-input";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
@@ -66,17 +67,7 @@ function RouteComponent() {
     <div className="min-h-screen">
       <div className="max-w-3xl mx-auto px-6 py-20">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-green-500/20 border border-green-500/30 mb-6">
-            <Repeat2Icon className="w-8 h-8 text-green-400" />
-          </div>
-          <h1 className="text-4xl font-bold text-green-500/75 bg-clip-text mb-3">
-            Metadata Editor
-          </h1>
-          <p className="text-muted-foreground text-lg">
-            Edit the metadata of a PDF (title, author, subject, etc.) in seconds.
-          </p>
-        </div>
+        <ToolHeader toolName="/metadata-editor" />
 
         {/* Drop Zone */}
         {!file ? (

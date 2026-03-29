@@ -14,10 +14,10 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { createFileRoute } from "@tanstack/react-router";
-import { CopyIcon } from "lucide-react";
 import { useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { SortableFileItem } from "@/components/SortableFileItem";
+import { ToolHeader } from "@/components/tool-header";
 import { Button } from "@/components/ui/button";
 import { mergePDFs } from "@/lib/pdf";
 import { downloadBlob } from "@/lib/utils";
@@ -68,15 +68,7 @@ function RouteComponent() {
     <div className="min-h-screen">
       <div className="max-w-3xl mx-auto px-6 py-20">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-indigo-500/20 border border-indigo-500/30 mb-6">
-            <CopyIcon className="w-8 h-8 text-indigo-400" />
-          </div>
-          <h1 className="text-4xl font-bold text-indigo-500/75 bg-clip-text mb-3">Merge PDF</h1>
-          <p className="text-muted-foreground text-lg">
-            Combine multiple PDF files into one document.
-          </p>
-        </div>
+        <ToolHeader toolName="/merge-pdf" />
 
         {/* Drop Zone */}
         <DropZoneFileInput multiple onFilesChanged={handleFilesAdded} />

@@ -1,8 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ScissorsIcon } from "lucide-react";
 import { useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { FileItem } from "@/components/FileItem";
+import { ToolHeader } from "@/components/tool-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -61,15 +61,7 @@ function RouteComponent() {
     <div className="min-h-screen">
       <div className="max-w-3xl mx-auto px-6 py-20">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-violet-500/20 border border-violet-500/30 mb-6">
-            <ScissorsIcon className="w-8 h-8 text-violet-400" />
-          </div>
-          <h1 className="text-4xl font-bold text-violet-400/75 bg-clip-text mb-3">Split PDF</h1>
-          <p className="text-muted-foreground text-lg">
-            Extract pages or split a PDF into multiple files.
-          </p>
-        </div>
+        <ToolHeader toolName="/split-pdf" />
 
         {/* Drop Zone */}
         {!file ? (

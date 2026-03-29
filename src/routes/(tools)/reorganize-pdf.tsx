@@ -1,10 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { DownloadIcon, Repeat2Icon, RotateCcwIcon } from "lucide-react";
+import { DownloadIcon, RotateCcwIcon } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
 import { useEffect, useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { FileItem } from "@/components/FileItem";
 import { PdfThumbnailGrid } from "@/components/PdfThumbnailGrid";
+import { ToolHeader } from "@/components/tool-header";
 import { Button } from "@/components/ui/button";
 import { reorganizePDF } from "@/lib/pdf";
 import { downloadBlob } from "@/lib/utils";
@@ -94,17 +95,9 @@ function RouteComponent() {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-5xl mx-auto px-6 py-20">
+      <div className="max-w-3xl mx-auto px-6 py-20">
         {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-blue-500/20 border border-blue-500/30 mb-6">
-            <Repeat2Icon className="w-8 h-8 text-blue-400" />
-          </div>
-          <h1 className="text-4xl font-bold text-blue-400/75 bg-clip-text mb-3">Reorganize PDF</h1>
-          <p className="text-muted-foreground text-lg">
-            Remove, Copy, and Reorder pages in your PDF document.
-          </p>
-        </div>
+        <ToolHeader toolName="/reorganize-pdf" />
 
         {/* Drop Zone */}
         {!file ? (

@@ -11,6 +11,7 @@ export const tools = [
     border: "hover:border-violet-500/60",
     iconBg: "bg-violet-500/20 border-violet-500/30",
     arrow: "text-violet-400",
+    text: "text-violet-500/75"
   },
   {
     // indigo
@@ -22,6 +23,7 @@ export const tools = [
     border: "hover:border-indigo-500/60",
     iconBg: "bg-indigo-500/20 border-indigo-500/30",
     arrow: "text-indigo-400",
+    text: "text-indigo-500/75"
   },
   {
     // blue
@@ -33,6 +35,7 @@ export const tools = [
     border: "hover:border-blue-500/60",
     iconBg: "bg-blue-500/20 border-blue-500/30",
     arrow: "text-blue-400",
+    text: "text-blue-500/75"
   },
   {
     // green
@@ -44,5 +47,6 @@ export const tools = [
     border: "hover:border-green-500/60",
     iconBg: "bg-green-500/20 border-green-500/30",
     arrow: "text-green-400",
+    text: "text-green-500/75"
   },
-];
+] as const;
