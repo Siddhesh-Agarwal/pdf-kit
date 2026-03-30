@@ -76,7 +76,7 @@ export function PdfThumbnail({ file, pageIndex }: PdfThumbnailProps) {
   }, [file, pageIndex]);
 
   return (
-    <div className="relative aspect-[3/4] bg-muted rounded-lg overflow-hidden border border-border shadow-sm flex items-center justify-center">
+    <div className="relative aspect-3/4 bg-muted rounded-lg overflow-hidden border border-border shadow-sm flex items-center justify-center">
       {loading && (
         <div className="absolute inset-0 flex items-center justify-center bg-muted animate-pulse z-10">
           <span className="text-[10px] text-muted-foreground">Loading...</span>

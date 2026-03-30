@@ -12,4 +12,4 @@ export const metadataFormSchema = z
   })
   .partial();
 
-export type MetadataForm = z.infer<typeof metadataFormSchema>
+export type MetadataForm = z.infer<typeof metadataFormSchema>;
