@@ -1,5 +1,5 @@
-import { PDFDocument } from "pdf-lib";
-import type { MetadataForm } from "@/models";
+import { degrees, PDFDocument, rgb } from "pdf-lib";
+import type { MetadataForm, WatermarkForm } from "@/models";
 
 function getBlob(mergedBytes: Uint8Array<ArrayBufferLike>) {
   const arr = new Uint8Array(mergedBytes);
@@ -66,4 +66,60 @@ export async function setMetadata(pdf: File, metadata: Partial<MetadataForm>): P
   if (metadata.modificationDate) pdfDoc.setModificationDate(metadata.modificationDate);
   const mergedBytes = await pdfDoc.save();
   return getBlob(mergedBytes);
+}
+
+export async function rotatePDF(
+  pdf: File,
+  rotations: { pageIndex: number; angle: 90 | 180 | 270 }[],
+): Promise<Blob> {
+  const pdfDoc = await PDFDocument.load(await pdf.arrayBuffer());
+  for (const { pageIndex, angle } of rotations) {
+    const page = pdfDoc.getPage(pageIndex);
+    page.setRotation(degrees(angle));
+  }
+  const pdfBytes = await pdfDoc.save();
+  return getBlob(pdfBytes);
+}
+
+export async function addWatermark(pdf: File, options: WatermarkForm): Promise<Blob> {
+  const pdfDoc = await PDFDocument.load(await pdf.arrayBuffer());
+  const pages = pdfDoc.getPages();
+  const { text, fontSize, opacity, color, position } = options;
+
+  const r = parseInt(color.slice(1, 3), 16) / 255;
+  const g = parseInt(color.slice(3, 5), 16) / 255;
+  const b = parseInt(color.slice(5, 7), 16) / 255;
+
+  for (const page of pages) {
+    const { width, height } = page.getSize();
+    const textWidth = text.length * fontSize * 0.5;
+
+    let x: number;
+    let y: number;
+    let rotate = 0;
+
+    if (position === "center") {
+      x = (width - textWidth) / 2;
+      y = height / 2;
+    } else if (position === "diagonal") {
+      x = (width - textWidth) / 2;
+      y = height / 2;
+      rotate = -45;
+    } else {
+      x = (width - textWidth) / 2;
+      y = 40;
+    }
+
+    page.drawText(text, {
+      x,
+      y,
+      size: fontSize,
+      color: rgb(r, g, b),
+      opacity,
+      rotate: degrees(rotate),
+    });
+  }
+
+  const pdfBytes = await pdfDoc.save();
+  return getBlob(pdfBytes);
 }

@@ -11,7 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as toolsWatermarkPdfRouteImport } from './routes/(tools)/watermark-pdf'
 import { Route as toolsSplitPdfRouteImport } from './routes/(tools)/split-pdf'
+import { Route as toolsRotatePdfRouteImport } from './routes/(tools)/rotate-pdf'
 import { Route as toolsReorganizePdfRouteImport } from './routes/(tools)/reorganize-pdf'
 import { Route as toolsMetadataEditorRouteImport } from './routes/(tools)/metadata-editor'
 import { Route as toolsMergePdfRouteImport } from './routes/(tools)/merge-pdf'
@@ -26,9 +28,19 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const toolsWatermarkPdfRoute = toolsWatermarkPdfRouteImport.update({
+  id: '/(tools)/watermark-pdf',
+  path: '/watermark-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const toolsSplitPdfRoute = toolsSplitPdfRouteImport.update({
   id: '/(tools)/split-pdf',
   path: '/split-pdf',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const toolsRotatePdfRoute = toolsRotatePdfRouteImport.update({
+  id: '/(tools)/rotate-pdf',
+  path: '/rotate-pdf',
   getParentRoute: () => rootRouteImport,
 } as any)
 const toolsReorganizePdfRoute = toolsReorganizePdfRouteImport.update({
@@ -53,7 +65,9 @@ export interface FileRoutesByFullPath {
   '/merge-pdf': typeof toolsMergePdfRoute
   '/metadata-editor': typeof toolsMetadataEditorRoute
   '/reorganize-pdf': typeof toolsReorganizePdfRoute
+  '/rotate-pdf': typeof toolsRotatePdfRoute
   '/split-pdf': typeof toolsSplitPdfRoute
+  '/watermark-pdf': typeof toolsWatermarkPdfRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -61,7 +75,9 @@ export interface FileRoutesByTo {
   '/merge-pdf': typeof toolsMergePdfRoute
   '/metadata-editor': typeof toolsMetadataEditorRoute
   '/reorganize-pdf': typeof toolsReorganizePdfRoute
+  '/rotate-pdf': typeof toolsRotatePdfRoute
   '/split-pdf': typeof toolsSplitPdfRoute
+  '/watermark-pdf': typeof toolsWatermarkPdfRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -70,7 +86,9 @@ export interface FileRoutesById {
   '/(tools)/merge-pdf': typeof toolsMergePdfRoute
   '/(tools)/metadata-editor': typeof toolsMetadataEditorRoute
   '/(tools)/reorganize-pdf': typeof toolsReorganizePdfRoute
+  '/(tools)/rotate-pdf': typeof toolsRotatePdfRoute
   '/(tools)/split-pdf': typeof toolsSplitPdfRoute
+  '/(tools)/watermark-pdf': typeof toolsWatermarkPdfRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -80,7 +98,9 @@ export interface FileRouteTypes {
     | '/merge-pdf'
     | '/metadata-editor'
     | '/reorganize-pdf'
+    | '/rotate-pdf'
     | '/split-pdf'
+    | '/watermark-pdf'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -88,7 +108,9 @@ export interface FileRouteTypes {
     | '/merge-pdf'
     | '/metadata-editor'
     | '/reorganize-pdf'
+    | '/rotate-pdf'
     | '/split-pdf'
+    | '/watermark-pdf'
   id:
     | '__root__'
     | '/'
@@ -96,7 +118,9 @@ export interface FileRouteTypes {
     | '/(tools)/merge-pdf'
     | '/(tools)/metadata-editor'
     | '/(tools)/reorganize-pdf'
+    | '/(tools)/rotate-pdf'
     | '/(tools)/split-pdf'
+    | '/(tools)/watermark-pdf'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -105,7 +129,9 @@ export interface RootRouteChildren {
   toolsMergePdfRoute: typeof toolsMergePdfRoute
   toolsMetadataEditorRoute: typeof toolsMetadataEditorRoute
   toolsReorganizePdfRoute: typeof toolsReorganizePdfRoute
+  toolsRotatePdfRoute: typeof toolsRotatePdfRoute
   toolsSplitPdfRoute: typeof toolsSplitPdfRoute
+  toolsWatermarkPdfRoute: typeof toolsWatermarkPdfRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -124,11 +150,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/(tools)/watermark-pdf': {
+      id: '/(tools)/watermark-pdf'
+      path: '/watermark-pdf'
+      fullPath: '/watermark-pdf'
+      preLoaderRoute: typeof toolsWatermarkPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/(tools)/split-pdf': {
       id: '/(tools)/split-pdf'
       path: '/split-pdf'
       fullPath: '/split-pdf'
       preLoaderRoute: typeof toolsSplitPdfRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/(tools)/rotate-pdf': {
+      id: '/(tools)/rotate-pdf'
+      path: '/rotate-pdf'
+      fullPath: '/rotate-pdf'
+      preLoaderRoute: typeof toolsRotatePdfRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/(tools)/reorganize-pdf': {
@@ -161,7 +201,9 @@ const rootRouteChildren: RootRouteChildren = {
   toolsMergePdfRoute: toolsMergePdfRoute,
   toolsMetadataEditorRoute: toolsMetadataEditorRoute,
   toolsReorganizePdfRoute: toolsReorganizePdfRoute,
+  toolsRotatePdfRoute: toolsRotatePdfRoute,
   toolsSplitPdfRoute: toolsSplitPdfRoute,
+  toolsWatermarkPdfRoute: toolsWatermarkPdfRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
