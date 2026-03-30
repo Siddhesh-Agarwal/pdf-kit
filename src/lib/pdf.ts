@@ -1,4 +1,5 @@
 import { PDFDocument } from "pdf-lib";
+import type { MetadataForm } from "@/models";
 
 function getBlob(mergedBytes: Uint8Array<ArrayBufferLike>) {
   const arr = new Uint8Array(mergedBytes);
@@ -41,17 +42,7 @@ export async function reorganizePDF(pdf: File, pageIndices: number[]): Promise<B
   return getBlob(pdfBytes);
 }
 
-export type Metadata = {
-  author: string;
-  title: string;
-  subject: string;
-  creator: string;
-  producer: string;
-  creationDate: Date;
-  modificationDate: Date;
-};
-
-export async function getMetadata(pdf: File): Promise<Partial<Metadata>> {
+export async function getMetadata(pdf: File): Promise<Partial<MetadataForm>> {
   const pdfDoc = await PDFDocument.load(await pdf.arrayBuffer());
   return {
     author: pdfDoc.getAuthor(),
@@ -64,7 +55,7 @@ export async function getMetadata(pdf: File): Promise<Partial<Metadata>> {
   };
 }
 
-export async function setMetadata(pdf: File, metadata: Partial<Metadata>): Promise<Blob> {
+export async function setMetadata(pdf: File, metadata: Partial<MetadataForm>): Promise<Blob> {
   const pdfDoc = await PDFDocument.load(await pdf.arrayBuffer());
   if (metadata.author) pdfDoc.setAuthor(metadata.author);
   if (metadata.title) pdfDoc.setTitle(metadata.title);

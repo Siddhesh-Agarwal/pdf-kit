@@ -3,7 +3,6 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import z from "zod/v3";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { FileItem } from "@/components/FileItem";
 import { ToolHeader } from "@/components/tool-header";
@@ -13,18 +12,7 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { getMetadata, setMetadata } from "@/lib/pdf";
 import { downloadBlob } from "@/lib/utils";
-
-const formSchema = z
-  .object({
-    title: z.string(),
-    author: z.string(),
-    subject: z.string(),
-    creator: z.string(),
-    producer: z.string(),
-    creationDate: z.date(),
-    modificationDate: z.date(),
-  })
-  .partial();
+import { type MetadataForm, metadataFormSchema } from "@/models";
 
 export const Route = createFileRoute("/(tools)/metadata-editor")({
   component: RouteComponent,
@@ -34,8 +22,8 @@ function RouteComponent() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<MetadataForm>({
+    resolver: zodResolver(metadataFormSchema),
   });
 
   const handleFileAdded = (newFiles: File[]) => {
@@ -57,7 +45,7 @@ function RouteComponent() {
     }
   };
 
-  async function handleSubmit(values: z.infer<typeof formSchema>) {
+  async function handleSubmit(values: MetadataForm) {
     if (!file) return;
     const blob = await setMetadata(file, values);
     downloadBlob(blob, `updated-${file.name}`);
