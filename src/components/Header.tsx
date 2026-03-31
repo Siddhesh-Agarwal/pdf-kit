@@ -29,7 +29,7 @@ export function Header() {
                 </NavigationMenuTrigger>
                 <NavigationMenuContent>
                   <ul className="grid w-75 gap-3 p-4 md:w-125 md:grid-cols-2 rounded-xl shadow-xl">
-                    {tools.map(({ to, label, icon: Icon, description, arrow }) => (
+                    {tools.map(({ to, label, icon: Icon, description, classes }) => (
                       <li key={to}>
                         <NavigationMenuLink>
                           <Link
@@ -37,7 +37,7 @@ export function Header() {
                             className="block select-none space-y-1.5 rounded-lg p-2 leading-none no-underline"
                           >
                             <div className="flex items-center gap-2 text-sm font-semibold">
-                              <Icon className={cn("w-4 h-4", arrow)} />
+                               <Icon className={cn("size-4", classes.icon)} />
                               {label}
                             </div>
                             <p className="line-clamp-2 text-xs">{description}</p>

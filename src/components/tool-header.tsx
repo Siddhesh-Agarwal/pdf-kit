@@ -14,12 +14,12 @@ export function ToolHeader({ toolName }: { toolName: ToolName }) {
       <div
         className={cn(
           "inline-flex items-center justify-center size-16 rounded-2xl border mb-6",
-          tool.iconBg,
+          tool.classes.iconBg,
         )}
       >
-        <Icon className={cn("w-8 h-8", tool.arrow)} />
+        <Icon className={cn("size-8", tool.classes.icon)} />
       </div>
-      <h1 className={cn("text-4xl font-bold bg-clip-text mb-3", tool.text)}>{tool.label}</h1>
+      <h1 className={cn("text-4xl font-bold bg-clip-text mb-3", tool.classes.text)}>{tool.label}</h1>
       <p className="text-muted-foreground text-lg">{tool.description}</p>
     </div>
   );

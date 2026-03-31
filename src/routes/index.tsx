@@ -37,15 +37,15 @@ function RouteComponent() {
 
         {/* Tool Cards */}
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {tools.map(({ to, label, description, icon: Icon, gradient, border, iconBg, arrow }) => (
+          {tools.map(({ to, label, description, icon: Icon, classes }) => (
             <Link
               key={to}
               to={to}
               className={cn(
                 "group relative flex flex-col p-6 rounded-2xl border border-border backdrop-blur-sm",
                 "transition-all duration-300 hover:shadow-xl hover:-translate-y-1 bg-linear-to-br",
-                gradient,
-                border,
+                classes.gradient,
+                classes.border,
               )}
             >
               {/* Icon */}
@@ -53,11 +53,11 @@ function RouteComponent() {
                 className={cn(
                   "inline-flex items-center justify-center w-12 h-12 rounded-xl border mb-5",
                   "transition-transform duration-200 group-hover:scale-110",
-                  iconBg,
-                  arrow,
+                  classes.iconBg,
+                  classes.icon,
                 )}
               >
-                <Icon className={cn("w-6 h-6", arrow)} />
+                <Icon className={cn("w-6 h-6", classes.icon)} />
               </div>
 
               {/* Label + Arrow */}
@@ -66,7 +66,7 @@ function RouteComponent() {
                 <ChevronRightIcon
                   className={cn(
                     "w-4 h-4 transition-transform duration-200 group-hover:translate-x-1",
-                    arrow,
+                    classes.icon,
                   )}
                 />
               </div>
