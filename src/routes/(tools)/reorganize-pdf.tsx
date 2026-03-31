@@ -5,10 +5,11 @@ import { useEffect, useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { FileItem } from "@/components/FileItem";
 import { PdfThumbnailGrid } from "@/components/PdfThumbnailGrid";
-import { ToolHeader } from "@/components/tool-header";
+import { getTool, ToolHeader } from "@/components/tool-header";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { reorganizePDF } from "@/lib/pdf";
-import { downloadBlob } from "@/lib/utils";
+import { cn, downloadBlob } from "@/lib/utils";
 
 export const Route = createFileRoute("/(tools)/reorganize-pdf")({
   component: RouteComponent,
@@ -20,6 +21,7 @@ interface PdfPage {
 }
 
 function RouteComponent() {
+  const tool = getTool("/reorganize-pdf");
   const [file, setFile] = useState<File | null>(null);
   const [pages, setPages] = useState<PdfPage[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -118,28 +120,21 @@ function RouteComponent() {
 
               <div className="flex items-center gap-3 w-full sm:w-auto">
                 <Button
-                  variant="outline"
                   size="sm"
                   onClick={resetOrder}
                   disabled={isProcessing}
-                  className="flex-1 sm:flex-none"
+                  className={cn("flex-1 sm:flex-none", tool.classes.outlineHover)}
                 >
-                  <RotateCcwIcon className="w-4 h-4 mr-2" />
+                  <RotateCcwIcon className="size-4 mr-2" />
                   Reset
                 </Button>
                 <Button
                   onClick={handleDownload}
                   disabled={isProcessing || pages.length === 0}
-                  className="flex-1 sm:flex-none bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-500/20"
+                  className={cn("flex-1 sm:flex-none", tool.classes.button)}
                 >
-                  {isProcessing ? (
-                    "Processing..."
-                  ) : (
-                    <>
-                      <DownloadIcon className="w-4 h-4 mr-2" />
-                      Download PDF
-                    </>
-                  )}
+                  {isProcessing ? <Spinner /> : <DownloadIcon className="size-4 mr-2" />}
+                  Download PDF
                 </Button>
               </div>
             </div>

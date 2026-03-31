@@ -30,4 +30,9 @@ dist-ssr
 .env*
 !.env.example
 
-docs/*
+# Tanstack
+.tanstack/*
+
+# OpenCode
+.opencode/*
+opencode.json

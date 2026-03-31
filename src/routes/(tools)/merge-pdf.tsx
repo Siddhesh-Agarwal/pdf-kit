@@ -17,16 +17,18 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { SortableFileItem } from "@/components/SortableFileItem";
-import { ToolHeader } from "@/components/tool-header";
+import { getTool, ToolHeader } from "@/components/tool-header";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { mergePDFs } from "@/lib/pdf";
-import { downloadBlob } from "@/lib/utils";
+import { cn, downloadBlob } from "@/lib/utils";
 
 export const Route = createFileRoute("/(tools)/merge-pdf")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const tool = getTool("/merge-pdf");
   const [files, setFiles] = useState<File[]>([]);
   const [isMerging, setIsMerging] = useState(false);
 
@@ -99,9 +101,10 @@ function RouteComponent() {
 
             <Button
               disabled={files.length < 2 || isMerging}
-              className="w-full mt-4 bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/20"
+              className={cn("w-full mt-4", tool.classes.button)}
               onClick={handleMergePDFs}
             >
+              {isMerging ? <Spinner /> : null}
               Merge {files.length} Files
             </Button>
           </div>

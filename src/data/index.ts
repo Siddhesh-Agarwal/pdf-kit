@@ -20,6 +20,8 @@ export const tools = [
       iconBg: "bg-violet-500/20 border-violet-500/30",
       icon: "text-violet-400",
       text: "text-violet-500/75",
+      button: "bg-violet-600 hover:bg-violet-500 shadow-lg shadow-violet-500/20",
+      outlineHover: "hover:bg-violet-500/10",
     },
   },
   {
@@ -34,6 +36,8 @@ export const tools = [
       iconBg: "bg-indigo-500/20 border-indigo-500/30",
       icon: "text-indigo-400",
       text: "text-indigo-500/75",
+      button: "bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/20",
+      outlineHover: "hover:bg-indigo-500/10",
     },
   },
   {
@@ -48,6 +52,8 @@ export const tools = [
       iconBg: "bg-blue-500/20 border-blue-500/30",
       icon: "text-blue-400",
       text: "text-blue-500/75",
+      button: "bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-500/20",
+      outlineHover: "hover:bg-blue-500/10",
     },
   },
   {
@@ -62,6 +68,8 @@ export const tools = [
       iconBg: "bg-green-500/20 border-green-500/30",
       icon: "text-green-400",
       text: "text-green-500/75",
+      button: "bg-green-600 hover:bg-green-500 shadow-lg shadow-green-500/20",
+      outlineHover: "hover:bg-green-500/10",
     },
   },
   {
@@ -76,6 +84,8 @@ export const tools = [
       iconBg: "bg-yellow-500/20 border-yellow-500/30",
       icon: "text-yellow-400",
       text: "text-yellow-500/75",
+      button: "bg-yellow-600 hover:bg-yellow-500 shadow-lg shadow-yellow-500/20",
+      outlineHover: "hover:bg-yellow-500/10",
     },
   },
   {
@@ -90,6 +100,8 @@ export const tools = [
       iconBg: "bg-orange-500/20 border-orange-500/30",
       icon: "text-orange-400",
       text: "text-orange-500/75",
+      button: "bg-orange-600 hover:bg-orange-500 shadow-lg shadow-orange-500/20",
+      outlineHover: "hover:bg-orange-500/10",
     },
   },
 ] as const;

@@ -37,7 +37,7 @@ export function Header() {
                             className="block select-none space-y-1.5 rounded-lg p-2 leading-none no-underline"
                           >
                             <div className="flex items-center gap-2 text-sm font-semibold">
-                               <Icon className={cn("size-4", classes.icon)} />
+                              <Icon className={cn("size-4", classes.icon)} />
                               {label}
                             </div>
                             <p className="line-clamp-2 text-xs">{description}</p>

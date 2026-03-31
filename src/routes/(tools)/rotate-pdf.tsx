@@ -1,12 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { DownloadIcon, RotateCcwIcon, RotateCwIcon } from "lucide-react";
+import { DownloadIcon, RotateCcwIcon, RotateCwIcon, Undo2Icon } from "lucide-react";
 import { PDFDocument } from "pdf-lib";
 import { useEffect, useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { FileItem } from "@/components/FileItem";
 import { PdfThumbnail } from "@/components/PdfThumbnail";
-import { ToolHeader } from "@/components/tool-header";
+import { getTool, ToolHeader } from "@/components/tool-header";
 import { Button } from "@/components/ui/button";
+import { ButtonGroup } from "@/components/ui/button-group";
+import { Spinner } from "@/components/ui/spinner";
 import { rotatePDF } from "@/lib/pdf";
 import { downloadBlob } from "@/lib/utils";
 
@@ -23,6 +25,8 @@ function RouteComponent() {
   const [file, setFile] = useState<File | null>(null);
   const [rotations, setRotations] = useState<PageRotation[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
+
+  const tool = getTool("/rotate-pdf");
 
   useEffect(() => {
     if (file) {
@@ -95,35 +99,30 @@ function RouteComponent() {
           <DropZoneFileInput multiple={false} onFilesChanged={handleFileAdded} />
         ) : (
           <div className="space-y-6">
-            <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 bg-muted/30 border border-border rounded-2xl sticky top-4 z-10 backdrop-blur-md">
-              <FileItem file={file} onRemove={() => setFile(null)} />
-              <div className="flex items-center gap-2">
-                <Button variant="outline" size="sm" onClick={() => rotateAll(true)}>
-                  <RotateCwIcon className="w-4 h-4 mr-1" />
+            <FileItem file={file} onRemove={() => setFile(null)} />
+            <div className="flex flex-col items-center">
+              <ButtonGroup>
+                <Button className={tool.classes.outlineHover} onClick={() => rotateAll(true)}>
+                  <RotateCwIcon className="size-4 mr-1" />
                   All CW
                 </Button>
-                <Button variant="outline" size="sm" onClick={() => rotateAll(false)}>
-                  <RotateCcwIcon className="w-4 h-4 mr-1" />
+                <Button className={tool.classes.outlineHover} onClick={() => rotateAll(false)}>
+                  <RotateCcwIcon className="size-4 mr-1" />
                   All CCW
                 </Button>
-                <Button variant="outline" size="sm" onClick={resetRotations}>
+                <Button className={tool.classes.outlineHover} onClick={resetRotations}>
+                  <Undo2Icon className="size-4 mr-1" />
                   Reset
                 </Button>
                 <Button
                   onClick={handleDownload}
                   disabled={isProcessing}
-                  className="bg-teal-600 hover:bg-teal-500 shadow-lg shadow-teal-500/20"
+                  className={tool.classes.button}
                 >
-                  {isProcessing ? (
-                    "Processing..."
-                  ) : (
-                    <>
-                      <DownloadIcon className="w-4 h-4 mr-2" />
-                      Download
-                    </>
-                  )}
+                  {isProcessing ? <Spinner /> : <DownloadIcon className="size-4" />}
+                  Download
                 </Button>
-              </div>
+              </ButtonGroup>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6">
@@ -140,20 +139,20 @@ function RouteComponent() {
                       <Button
                         variant="secondary"
                         size="icon"
-                        className="w-6 h-6 rounded-full shadow-sm border border-border bg-background hover:bg-muted"
+                        className="size-6 rounded-full shadow-sm border border-border bg-background hover:bg-muted"
                         onClick={() => rotatePage(r.pageIndex, true)}
                         title="Rotate 90° CW"
                       >
-                        <RotateCwIcon className="w-3 h-3 text-teal-500" />
+                        <RotateCwIcon className="size-3" />
                       </Button>
                       <Button
                         variant="secondary"
                         size="icon"
-                        className="w-6 h-6 rounded-full shadow-sm border border-border bg-background hover:bg-muted"
+                        className="size-6 rounded-full shadow-sm border border-border bg-background hover:bg-muted"
                         onClick={() => rotatePage(r.pageIndex, false)}
                         title="Rotate 90° CCW"
                       >
-                        <RotateCcwIcon className="w-3 h-3 text-teal-500" />
+                        <RotateCcwIcon className="size-3" />
                       </Button>
                     </div>
                   </div>
@@ -161,9 +160,7 @@ function RouteComponent() {
                     <span className="text-xs font-medium text-muted-foreground">
                       Page {r.pageIndex + 1}
                     </span>
-                    {r.angle !== 0 && (
-                      <span className="text-xs text-teal-500 font-medium">{r.angle}°</span>
-                    )}
+                    {r.angle !== 0 && <span className="text-xs font-medium">{r.angle}°</span>}
                   </div>
                 </div>
               ))}

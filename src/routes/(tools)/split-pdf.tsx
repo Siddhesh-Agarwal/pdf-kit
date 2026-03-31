@@ -2,18 +2,20 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { FileItem } from "@/components/FileItem";
-import { ToolHeader } from "@/components/tool-header";
+import { getTool, ToolHeader } from "@/components/tool-header";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Spinner } from "@/components/ui/spinner";
 import { splitPDF } from "@/lib/pdf";
-import { downloadBlob } from "@/lib/utils";
+import { cn, downloadBlob } from "@/lib/utils";
 
 export const Route = createFileRoute("/(tools)/split-pdf")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const tool = getTool("/split-pdf");
   const [file, setFile] = useState<File | null>(null);
   const [pageRange, setPageRange] = useState("");
   const [isLoading, setIsLoading] = useState(false);
@@ -33,9 +35,9 @@ function RouteComponent() {
       const ranges = rangeStrings.map((r) => r.split("-").map((n) => parseInt(n.trim())));
       const pages = new Set<number>();
       for (const range of ranges) {
-        if (range.length === 1 && !isNaN(range[0])) {
+        if (range.length === 1 && !Number.isNaN(range[0])) {
           pages.add(range[0] - 1);
-        } else if (range.length === 2 && !isNaN(range[0]) && !isNaN(range[1])) {
+        } else if (range.length === 2 && !Number.isNaN(range[0]) && !Number.isNaN(range[1])) {
           for (let i = range[0]; i <= range[1]; i++) {
             pages.add(i - 1);
           }
@@ -90,10 +92,12 @@ function RouteComponent() {
             </div>
 
             <Button
+              size="lg"
               disabled={isLoading}
               onClick={handleSubmit}
-              className="w-full bg-violet-600 hover:bg-violet-500 shadow-lg shadow-violet-500/20"
+              className={cn("w-full", tool.classes.button)}
             >
+              {isLoading ? <Spinner /> : null}
               Split PDF
             </Button>
           </div>

@@ -14,12 +14,14 @@ export const metadataFormSchema = z
 
 export type MetadataForm = z.infer<typeof metadataFormSchema>;
 
+export const WatermarkPosition = ["center", "diagonal", "bottom"] as const;
+
 export const watermarkFormSchema = z.object({
   text: z.string().min(1, "Watermark text is required"),
   fontSize: z.coerce.number().min(12, "Minimum 12px").max(120, "Maximum 120px"),
   opacity: z.coerce.number().min(0.05, "Minimum 5%").max(1, "Maximum 100%"),
   color: z.string().regex(/^#[0-9a-fA-F]{6}$/, "Must be a valid hex color (e.g. #888888)"),
-  position: z.enum(["center", "diagonal", "bottom"]),
+  position: z.enum(WatermarkPosition),
 });
 
 export type WatermarkForm = z.infer<typeof watermarkFormSchema>;

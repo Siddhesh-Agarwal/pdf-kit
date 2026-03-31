@@ -1,6 +1,16 @@
 import { Upload } from "lucide-react";
-import { useCallback, useState } from "react";
+import { useState } from "react";
+import z from "zod";
+import { FieldDescription, FieldTitle } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
+
+const PDF_MIME_TYPE = "application/pdf";
+
+const pdfFileSchema = z.file().mime(PDF_MIME_TYPE, {
+  message: "File must be a PDF",
+});
+
+const pdfFilesSchema = z.array(pdfFileSchema).min(1, "At least one PDF file is required");
 
 interface DropZoneFileInputProps {
   onFilesChanged: (files: File[]) => void;
@@ -17,30 +27,27 @@ export function DropZoneFileInput({
 }: DropZoneFileInputProps) {
   const [dragging, setDragging] = useState(false);
 
-  const handleDrop = useCallback(
-    (e: React.DragEvent) => {
-      e.preventDefault();
-      setDragging(false);
-      const dropped = Array.from(e.dataTransfer.files).filter((f) => f.type === "application/pdf");
-      if (dropped.length > 0) {
-        onFilesChanged(multiple ? dropped : [dropped[0]]);
-      }
-    },
-    [multiple, onFilesChanged],
-  );
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const picked = Array.from(e.target.files ?? []);
-    if (picked.length > 0) {
-      onFilesChanged(multiple ? picked : [picked[0]]);
+  const handleDrop = (e: React.DragEvent) => {
+    e.preventDefault();
+    setDragging(false);
+    const dropped = Array.from(e.dataTransfer.files).filter((f) => f.type === PDF_MIME_TYPE);
+    const result = pdfFilesSchema.safeParse(dropped);
+    if (result.success) {
+      onFilesChanged(multiple ? result.data : [result.data[0]]);
     }
   };
 
-  const getThemeClasses = () => {
-    return dragging
-      ? "border-primary bg-primary/10"
-      : "border-border bg-muted/30 hover:border-primary/60 hover:bg-muted/50";
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const picked = Array.from(e.target.files ?? []);
+    const result = pdfFilesSchema.safeParse(picked);
+    if (result.success) {
+      onFilesChanged(multiple ? result.data : [result.data[0]]);
+    }
   };
+
+  const themeClasses = dragging
+    ? "border-primary bg-primary/10"
+    : "border-border bg-muted/30 hover:border-primary/60 hover:bg-muted/50";
 
   return (
     <div
@@ -52,21 +59,21 @@ export function DropZoneFileInput({
       onDragLeave={() => setDragging(false)}
       className={cn(
         "relative border-2 border-dashed rounded-2xl p-12 text-center transition-all duration-200 cursor-pointer",
-        getThemeClasses(),
+        themeClasses,
       )}
     >
       <input
         type="file"
         multiple={multiple}
-        accept="application/pdf"
+        accept={PDF_MIME_TYPE}
         className="absolute inset-0 opacity-0 cursor-pointer"
         onChange={handleChange}
       />
       <Upload className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
-      <p className="text-foreground font-medium mb-1">
+      <FieldTitle className="justify-center text-base">
         {title || (multiple ? "Drop PDF files here" : "Drop a PDF file here")}
-      </p>
-      <p className="text-muted-foreground text-sm">{subtitle}</p>
+      </FieldTitle>
+      <FieldDescription className="text-center">{subtitle}</FieldDescription>
     </div>
   );
 }

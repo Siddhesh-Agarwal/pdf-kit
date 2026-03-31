@@ -5,19 +5,21 @@ import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { FileItem } from "@/components/FileItem";
-import { ToolHeader } from "@/components/tool-header";
+import { getTool, ToolHeader } from "@/components/tool-header";
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
 import { addWatermark } from "@/lib/pdf";
-import { downloadBlob } from "@/lib/utils";
-import { type WatermarkForm, watermarkFormSchema } from "@/models";
+import { cn, downloadBlob } from "@/lib/utils";
+import { type WatermarkForm, WatermarkPosition, watermarkFormSchema } from "@/models";
 
 export const Route = createFileRoute("/(tools)/watermark-pdf")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const tool = getTool("/watermark-pdf");
   const [file, setFile] = useState<File | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
@@ -91,7 +93,7 @@ function RouteComponent() {
                           max={120}
                           value={field.value}
                           onChange={(e) => field.onChange(Number(e.target.value))}
-                          className="w-full accent-cyan-500"
+                          className="w-full"
                         />
                         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                       </Field>
@@ -112,7 +114,7 @@ function RouteComponent() {
                           max={100}
                           value={Math.round(field.value * 100)}
                           onChange={(e) => field.onChange(Number(e.target.value) / 100)}
-                          className="w-full accent-cyan-500"
+                          className="w-full"
                         />
                         {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                       </Field>
@@ -148,14 +150,16 @@ function RouteComponent() {
                       <Field data-invalid={fieldState.invalid}>
                         <FieldLabel>Position</FieldLabel>
                         <div className="flex gap-1">
-                          {(["center", "diagonal", "bottom"] as const).map((pos) => (
+                          {WatermarkPosition.map((pos) => (
                             <Button
                               key={pos}
                               type="button"
                               variant={field.value === pos ? "default" : "outline"}
                               size="sm"
+                              className={
+                                field.value !== pos ? tool.classes.outlineHover : undefined
+                              }
                               onClick={() => field.onChange(pos)}
-                              className={field.value === pos ? "bg-cyan-600 hover:bg-cyan-500" : ""}
                             >
                               {pos.charAt(0).toUpperCase() + pos.slice(1)}
                             </Button>
@@ -169,18 +173,13 @@ function RouteComponent() {
               </div>
 
               <Button
+                size="lg"
                 type="submit"
                 disabled={isProcessing}
-                className="w-full bg-cyan-600 hover:bg-cyan-500 shadow-lg shadow-cyan-500/20"
+                className={cn("w-full", tool.classes.button)}
               >
-                {isProcessing ? (
-                  "Processing..."
-                ) : (
-                  <>
-                    <DownloadIcon className="w-4 h-4 mr-2" />
-                    Add Watermark & Download
-                  </>
-                )}
+                {isProcessing ? <Spinner /> : <DownloadIcon className="size-4" />}
+                Add Watermark & Download
               </Button>
             </form>
           </div>

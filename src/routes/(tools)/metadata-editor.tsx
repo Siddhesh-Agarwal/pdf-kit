@@ -1,17 +1,17 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createFileRoute } from "@tanstack/react-router";
-import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { DropZoneFileInput } from "@/components/DropZoneFileInput";
 import { FileItem } from "@/components/FileItem";
-import { ToolHeader } from "@/components/tool-header";
+import { getTool, ToolHeader } from "@/components/tool-header";
 import { Button } from "@/components/ui/button";
 import { DateInput } from "@/components/ui/date-input";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { Spinner } from "@/components/ui/spinner";
 import { getMetadata, setMetadata } from "@/lib/pdf";
-import { downloadBlob } from "@/lib/utils";
+import { cn, downloadBlob } from "@/lib/utils";
 import { type MetadataForm, metadataFormSchema } from "@/models";
 
 export const Route = createFileRoute("/(tools)/metadata-editor")({
@@ -21,6 +21,8 @@ export const Route = createFileRoute("/(tools)/metadata-editor")({
 function RouteComponent() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const tool = getTool("/metadata-editor");
 
   const form = useForm<MetadataForm>({
     resolver: zodResolver(metadataFormSchema),
@@ -47,8 +49,15 @@ function RouteComponent() {
 
   async function handleSubmit(values: MetadataForm) {
     if (!file) return;
-    const blob = await setMetadata(file, values);
-    downloadBlob(blob, `updated-${file.name}`);
+    setIsProcessing(true);
+    try {
+      const blob = await setMetadata(file, values);
+      downloadBlob(blob, `updated-${file.name}`);
+    } catch (error) {
+      console.error("Error updating metadata:", error);
+    } finally {
+      setIsProcessing(false);
+    }
   }
 
   return (
@@ -65,7 +74,7 @@ function RouteComponent() {
             <FileItem file={file} onRemove={() => setFile(null)} />
             {loading ? (
               <div className="flex items-center justify-center">
-                <Loader2Icon className="w-8 h-8 text-green-400 animate-spin" />
+                <Spinner className={cn("size-8", tool.classes.icon)} />
               </div>
             ) : (
               <form className="space-y-6" onSubmit={form.handleSubmit(handleSubmit)}>
@@ -158,7 +167,13 @@ function RouteComponent() {
                     )}
                   />
                 </div>
-                <Button type="submit" size="lg" className="w-full">
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isProcessing}
+                  className={cn("w-full", tool.classes.button)}
+                >
+                  {isProcessing ? <Spinner /> : null}
                   Update Metadata
                 </Button>
               </form>
