@@ -1,4 +1,4 @@
-import { Upload } from "lucide-react";
+import { UploadIcon } from "lucide-react";
 import { useState } from "react";
 import z from "zod";
 import { FieldDescription, FieldTitle } from "@/components/ui/field";
@@ -69,8 +69,8 @@ export function DropZoneFileInput({
         className="absolute inset-0 opacity-0 cursor-pointer"
         onChange={handleChange}
       />
-      <Upload className="w-10 h-10 text-muted-foreground mx-auto mb-4" />
-      <FieldTitle className="justify-center text-base">
+      <UploadIcon className="size-10 text-muted-foreground mx-auto mb-4" />
+      <FieldTitle className="text-center mb-2">
         {title || (multiple ? "Drop PDF files here" : "Drop a PDF file here")}
       </FieldTitle>
       <FieldDescription className="text-center">{subtitle}</FieldDescription>
