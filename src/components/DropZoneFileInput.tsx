@@ -1,16 +1,23 @@
 import { UploadIcon } from "lucide-react";
 import { useState } from "react";
 import z from "zod";
-import { FieldDescription, FieldTitle } from "@/components/ui/field";
+import { FieldDescription, FieldError, FieldTitle } from "@/components/ui/field";
 import { cn } from "@/lib/utils";
 
 const PDF_MIME_TYPE = "application/pdf";
+const MAX_TOTAL_SIZE = 25 * 1024 * 1024;
 
 const pdfFileSchema = z.file().mime(PDF_MIME_TYPE, {
   message: "File must be a PDF",
 });
 
-const pdfFilesSchema = z.array(pdfFileSchema).min(1, "At least one PDF file is required");
+const pdfFilesSchema = z
+  .array(pdfFileSchema)
+  .min(1, "At least one PDF file is required")
+  .refine(
+    (files) => files.reduce((sum, f) => sum + f.size, 0) <= MAX_TOTAL_SIZE,
+    { message: "Total file size exceeds 25MB limit" }
+  );
 
 interface DropZoneFileInputProps {
   onFilesChanged: (files: File[]) => void;
@@ -26,22 +33,29 @@ export function DropZoneFileInput({
   subtitle = "or click to browse",
 }: DropZoneFileInputProps) {
   const [dragging, setDragging] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     setDragging(false);
+    setError(null);
     const dropped = Array.from(e.dataTransfer.files).filter((f) => f.type === PDF_MIME_TYPE);
     const result = pdfFilesSchema.safeParse(dropped);
     if (result.success) {
       onFilesChanged(multiple ? result.data : [result.data[0]]);
+    } else {
+      setError(result.error.issues[0]?.message ?? "Invalid file");
     }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setError(null);
     const picked = Array.from(e.target.files ?? []);
     const result = pdfFilesSchema.safeParse(picked);
     if (result.success) {
       onFilesChanged(multiple ? result.data : [result.data[0]]);
+    } else {
+      setError(result.error.issues[0]?.message ?? "Invalid file");
     }
   };
 
@@ -74,6 +88,9 @@ export function DropZoneFileInput({
         {title || (multiple ? "Drop PDF files here" : "Drop a PDF file here")}
       </FieldTitle>
       <FieldDescription className="text-center">{subtitle}</FieldDescription>
+      {error && (
+        <FieldError className="text-center mt-2">{error}</FieldError>
+      )}
     </div>
   );
 }
